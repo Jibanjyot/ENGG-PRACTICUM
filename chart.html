@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.0/dist/chart.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  </head>
+  <body>
+    
+      <div class="container" width="400vh" height="400vh">
+        <canvas id="myChart" ></canvas>
+      </div>
+
+
+  </body>
+  <script>
+    /*let myChart = document.getElementById("myChart").getContext('2d');
+    let massPopChart = new Chart(myChart,{
+      type : 'bar',
+      data:{
+        labels: ['a','b','c','d','e','f'],
+        dataset: [{
+          label: 'Population',
+          data: [1,2,5,3,4,6]
+        }]
+      },
+      options: {}
+    });*/
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+    type: 'scatter',
+  
+    data: {
+    datasets: [{
+      label: 'Equation Plotted',
+      data: [{
+        x: 0,
+        y: 2
+      }, {
+        x: 1,
+        y: 3
+      }, {
+        x: 2,
+        y: 2
+      }, {
+        x: 1.02,
+        y: 0.4
+      }, {
+        x: 0,
+        y: -1
+      }],
+      backgroundColor: [
+        'rgba(123, 83, 252, 0.8)',
+        'rgba(123, 83, 252, 0.8)',
+        'rgba(123, 83, 252, 0.8)',
+        'rgba(123, 83, 252, 0.8)',
+        'rgba(123, 83, 252, 0.8)',
+        'rgba(123, 83, 252, 0.8)'
+      ],
+      borderColor: [
+        'rgba(33, 232, 234, 1)',
+        'rgba(33, 232, 234, 1)',
+        'rgba(33, 232, 234, 1)',
+        'rgba(33, 232, 234, 1)',
+        'rgba(33, 232, 234, 1)',
+        'rgba(33, 232, 234, 1)'
+      ],
+      borderWidth: 1
+    }],
+  },
+  options: {
+    scales: {
+      xAxes : [{
+        type: 'linear',
+        position: 'bottom',
+        ticks: {
+          min: -1,
+          max: 8,
+          stepSize: 1,
+          fixedStepSize: 1,
+        }
+      }],
+      yAxes : [{
+        type: 'linear',
+        position: 'left',
+        ticks: {
+          min: -2,
+          max: 4,
+          stepSize: 1,
+          fixedStepSize: 1,
+        }
+      }]
+    }
+  },
+  
+});
+  </script>
+</html>
