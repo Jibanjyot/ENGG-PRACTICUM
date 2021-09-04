@@ -4,9 +4,9 @@ import pickle
 import logging
 
 logging.basicConfig(level=logging.DEBUG)
-# app = Flask(__name__, static_url_path='')
 
 app = Flask(__name__)
+app = Flask(__name__, static_url_path='')
 CORS(app)
 contactAngle = pickle.load(open('predictContactAngle.pkl', 'rb'))
 
