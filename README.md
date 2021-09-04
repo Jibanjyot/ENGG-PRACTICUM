@@ -1,4 +1,4 @@
-# Flask
+# Plotly & Flask
 
 ## How to run Flask Server
 1. Open terminal
