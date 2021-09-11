@@ -101,8 +101,7 @@ y = y1_balloon+y1_Bell+y1_bowl+y1_Bulb
 
 x = []
 for i in range(len(x1)):
-  x.append([x1[i],x2[i]])
-
+    x.append([x1[i], x2[i]])
 
 
 X, y = x, y
@@ -115,11 +114,10 @@ h_input = 1.7542
 x_in =  [h_input,b_input] #[yvalue,xvalue]
 print(loaded_model.predict([x_in]))
 if knn.predict([x_in])[0] == 11:
-  print("Bell")
+    print("Bell")
 if knn.predict([x_in])[0] == 12:
-  print("Balloon")
+    print("Balloon")
 if knn.predict([x_in])[0] == 13:
-  print("Bulb")
+    print("Bulb")
 if knn.predict([x_in])[0] == 10:
-  print("Bowl")
-  
+    print("Bowl")
