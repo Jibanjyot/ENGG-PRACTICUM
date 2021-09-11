@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from sklearn import neighbors, datasets
+import pickle
 
 x1_bowl = []#h values
 x2_bowl = []#corresponding b values
@@ -25,7 +26,7 @@ for i in range(0,150):
       x2_bowl.append(df_b_bowl.iloc[i,j])
       y1_bowl.append(10)#10=bowl
  
- x1_Bell = []#h values
+x1_Bell = []#h values
 x2_Bell = []#corresponding b values
 y1_Bell = []#corresponding region
 df_h_Bell = pd.read_csv("BohDataBell.csv",header=None)
@@ -107,11 +108,12 @@ for i in range(len(x1)):
 X, y = x, y
 knn = neighbors.KNeighborsClassifier(n_neighbors=1)
 knn.fit(X, y)
-
+pickle.dump(knn,open('regimePredict.pkl','wb'))
+loaded_model=pickle.load(open('regimePredict.pkl','rb'))
 b_input = 0.87
 h_input = 1.7542
 x_in =  [h_input,b_input] #[yvalue,xvalue]
-print(knn.predict([x_in]))
+print(loaded_model.predict([x_in]))
 if knn.predict([x_in])[0] == 11:
   print("Bell")
 if knn.predict([x_in])[0] == 12:
