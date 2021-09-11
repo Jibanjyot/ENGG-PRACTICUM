@@ -9,7 +9,7 @@ app = Flask(__name__)
 app = Flask(__name__, static_url_path='')
 CORS(app)
 contactAngle = pickle.load(open('predictContactAngle.pkl', 'rb'))
-regimePrediction=pickle.load(open('regimePredict.pkl','rb'))
+regimePrediction = pickle.load(open('regimePredict.pkl', 'rb'))
 
 
 @app.route('/predict/contactAngle', methods=['POST'])
@@ -18,17 +18,19 @@ def predict():
     x_new = float(request.form.get("x"))
     y_new = float(request.form.get('y'))
     prediction = contactAngle(x_new, y_new)
-    return jsonify(prediction[0])
+    return str(prediction[0])
 
-@app.route('/predict/regime',methods=['POST'])
+
+@app.route('/predict/regime', methods=['POST'])
 def regimePredict():
-    #Set x and y in form value
-    b_input=float(request.form.get("b_input"))
-    h_input=float(request.form.get("h_input"))
-    x_in=[h_input,b_input]
+    # Set x and y in form value
+    b_input = float(request.form.get("b_input"))
+    h_input = float(request.form.get("h_input"))
+    x_in = [h_input, b_input]
     prediction = regimePrediction.predict([x_in])
     print(prediction[0])
-    return str(prediction[0]) 
+    return str(prediction[0])
+
 
 @app.route('/test', methods=['GET'])
 def test():

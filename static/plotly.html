@@ -23,39 +23,78 @@
 
 <body>
     <script>
-      function mFunction(){
-    const XHR = new XMLHttpRequest(),
-        FD  = new FormData();
+    function predictRegime(){
+      const XHR = new XMLHttpRequest(),
+      FD  = new FormData();
 
-    var x = document.getElementById("hstar").value;
-    var y = document.getElementById("bstar").value;
-    console.log("HELLO")
-    // Push our data into our FormData object
-    FD.append( "x", x );
-    FD.append( "y", y );
+      var x = document.getElementById("hstar").value;
+      var y = document.getElementById("bstar").value;
+      console.log("HELLO")
+      // Push our data into our FormData object
+      FD.append( "b_input", x );
+      FD.append( "h_input", y );
 
-    // Define what happens on successful data submission
-  //   XHR.addEventListener( 'load', function( event ) {
-  //     alert( 'Yeah! Data sent and response loaded.' );
-  //   } );
+      XHR.open( 'POST', 'http://127.0.0.1:5000/predict/regime' );
 
-  //  // Define what happens in case of error
-  //   XHR.addEventListener(' error', function( event ) {
-  //     alert( 'Oops! Something went wrong.' );
-  //   } );
+      // Send our FormData object; HTTP headers are set automatically
+      XHR.send(FD);
+      console.log("send")
+      XHR.onload = function(){
+          console.log(XHR.response)
+          var x = XHR.response
+          console.log(x)
+          str =""
+          if (x == "10"){
+             str = "Bowl" 
+          }
+          if(x == "11"){
+            str = "Bell"
+          }
+          if(x == "12"){
+            str = "Balloon"
+          }
+          if(x == "13"){
+            str = "Bulb"
+          }
+          console.log(str)
+          document.getElementById("shape").innerHTML = "Regime Shape= "+ str;
+      }  
+    }
+    function mFunction(){
+      myFunction()
+      predictRegime()
+      const XHR = new XMLHttpRequest(),
+      FD  = new FormData();
 
-    // Set up our request
-    XHR.open( 'POST', 'http://127.0.0.1:5000/predict/contactAngle' );
+      var x = document.getElementById("hstar").value;
+      var y = document.getElementById("bstar").value;
+      console.log("HELLO")
+      // Push our data into our FormData object
+      FD.append( "x", x );
+      FD.append( "y", y );
 
-    // Send our FormData object; HTTP headers are set automatically
-    XHR.send(FD);
+        // Define what happens on successful data submission
+      //   XHR.addEventListener( 'load', function( event ) {
+      //     alert( 'Yeah! Data sent and response loaded.' );
+      //   } );
 
-    console.log("send")
-    XHR.onload = function(){
-        console.log(XHR.response)
-        var x = XHR.response
-        console.log(x)
-        document.getElementById("res").innerHTML = x;
+      //  // Define what happens in case of error
+      //   XHR.addEventListener(' error', function( event ) {
+      //     alert( 'Oops! Something went wrong.' );
+      //   } );
+
+      // Set up our request
+      XHR.open( 'POST', 'http://127.0.0.1:5000/predict/contactAngle' );
+
+      // Send our FormData object; HTTP headers are set automatically
+      XHR.send(FD);
+
+      console.log("send")
+      XHR.onload = function(){
+          console.log(XHR.response)
+          var x = XHR.response
+          console.log(x)
+          document.getElementById("res").innerHTML ="Contact Angle = "+ parseFloat(x).toFixed(4)+"<span>&#176;</span>";
     } 
   }
     </script>
@@ -90,14 +129,14 @@
                     <label for="bstar">Enter b_star:</label>
                     <input type="text" id="bstar" name="fname"><br><br>
                     <div class="text-center"><button type="button" class="btn btn-primary"
-                            onclick="myFunction()">Enter</button>
+                            onclick="mFunction()">Enter</button>
                     </div>
                 </div>
                 <div class="shadow  p-3 mb-3 input-card">
 
                   <h1>RESULTS</h1>
-                    <h5> Contact Angle = </h5>
-                    <h5 id = "res"></h5>
+                    <h5 id = "res"> Contact Angle = </h5>
+                    <h5 id = "shape">Regime Shape = </h5>
                   <!-- <label for="hstar">Enter h_star:</label>
                   <input type="text" id="hstar" name="fname"><br><br>
                   <label for="bstar">Enter b_star:</label>
