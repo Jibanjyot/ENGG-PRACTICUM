@@ -99,6 +99,6 @@ function myFunction() {
         mode: 'markers',
         type: 'scatter'
     };
-    Plotly.react('tester', [trace1,trace2,trace3,trace4,trace5, point], layout, { scrollZoom: true});
+    Plotly.react('tester', [trace6,trace1,trace2,trace3,trace4,trace5, point], layout, { scrollZoom: true});
 }
 
