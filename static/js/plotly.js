@@ -68,6 +68,13 @@ var trace6 = {
 
 
 var layout = {
+    autosize: true,
+    width: 900,
+    height: 800,
+    margin: {
+      r: 0,
+      l:200
+    },
     xaxis: { range: [0, 3] },
     yaxis: { range: [0, 3] },
     legend: {

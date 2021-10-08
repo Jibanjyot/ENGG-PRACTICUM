@@ -4,7 +4,7 @@
     text-align: center;
     font-size: 30px;
     height: 15vh;
-    background-color: #3275a8;
+    background-color: #fff;
     margin: 2px;
     border-radius: 10px;
     padding: 30px;
@@ -14,22 +14,46 @@
     padding: 10px;
 }
 
+.textbox{
+    margin:10px
+}
+.heading{
+ padding: 20px;
+}
 .color-name {
     color: white;
     font-size: 20px;
 }
 .container-background{
-    background-color: black;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
 }
-
+.input-data{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .input-card{
-    border-radius : 50px;
     background-color: white;
     margin-top: 30px;
 }
 .header-card{
     text-align: center;
 }
+#test{
+    padding: 100px;
+    
+}
+.graph{
+    display: flex;
+    justify-content: end;
+    flex:0.6
+}
 .plotly-card{
     border-radius : 50px;
+}
+.group{
+    display: flex;
+    justify-content: space-around;
 }
