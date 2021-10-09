@@ -68,6 +68,13 @@ var trace6 = {
 
 
 var layout = {
+    autosize: true,
+    width: 900,
+    height: 800,
+    margin: {
+      r: 0,
+      l:200
+    },
     xaxis: { range: [0, 3] },
     yaxis: { range: [0, 3] },
     legend: {
@@ -92,6 +99,6 @@ function myFunction() {
         mode: 'markers',
         type: 'scatter'
     };
-    Plotly.react('tester', [trace1,trace2,trace3,trace4,trace5, point], layout, { scrollZoom: true});
+    Plotly.react('tester', [trace6,trace1,trace2,trace3,trace4,trace5, point], layout, { scrollZoom: true});
 }
 

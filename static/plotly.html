@@ -18,7 +18,7 @@
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
         crossorigin="anonymous"></script>
     <script src="https://cdn.plot.ly/plotly-2.3.0.min.js"></script>
-    <title>Digitised tensiometric chart</title>
+    <title>Tensiometric chart</title>
 </head>
 
 <body>
@@ -98,7 +98,7 @@
     } 
   }
     </script>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light ">
         <a class="navbar-brand" href="#">Menu</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
           aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -118,40 +118,32 @@
       </nav>
       <div class="d-flex justify-content-center"><h1 class="color-palette-heading col-lg-6 ">Digitised Tensiometric chart</h1></div>
      <div class="container-fluid container-background">
-        <div class="row">
-            
-            <div class="col-12 col-md-6 col-lg-6 ">
-                <div class="shadow  p-3 mb-3 input-card">
-
-                    <h1>INPUT VALUES</h1>
+        <div>
+            <div class="p-3 mb-3" >
+                <div class="input-data">
+                  <div class="textbox">
                     <label for="hstar">Enter h_star:</label>
                     <input type="text" id="hstar" name="fname"><br><br>
+                  </div>
+                  <div class="textbox">
                     <label for="bstar">Enter b_star:</label>
                     <input type="text" id="bstar" name="fname"><br><br>
-                    <div class="text-center"><button type="button" class="btn btn-primary"
-                            onclick="mFunction()">Enter</button>
-                    </div>
+                  </div>                  
                 </div>
-                <div class="shadow  p-3 mb-3 input-card">
-
-                  <h1>RESULTS</h1>
-                    <h5 id = "res"> Contact Angle = </h5>
-                    <h5 id = "shape">Regime Shape = </h5>
-                  <!-- <label for="hstar">Enter h_star:</label>
-                  <input type="text" id="hstar" name="fname"><br><br>
-                  <label for="bstar">Enter b_star:</label>
-                  <input type="text" id="bstar" name="fname"><br><br>
                   <div class="text-center"><button type="button" class="btn btn-primary"
-                          onclick="myFunction()">Enter</button>
-                  </div> -->
-              </div>
+                          onclick="mFunction()">Calculate!</button>
+                  </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-6">
-                <div class="shadow plotly-card p-3 mb-3">
-                    <div id="tester" style="width:600px;height:600px;"></div>
-                
-                </div>
-            </div>
+        </div>     
+        <div class="group">
+          <div class="plotly-card p-3 mb-3" class="graph">
+              <div id="tester"></div>
+          </div>
+          <div class="p-3 mb-3 input-card">
+            <h1>RESULTS</h1>
+            <h5 id = "res"> Contact Angle = </h5>
+            <h5 id = "shape">Regime Shape = </h5>
+        </div> 
         </div>
     </div>
 </body>
