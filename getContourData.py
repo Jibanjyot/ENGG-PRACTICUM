@@ -1,5 +1,5 @@
 #decide stable or unstable
-def contourData(b_star_input,h_star_input,contact_angle_predicted):
+def contourData(b_star_input,h_star_input):
   df= pd.read_excel("boundaryPoints.xlsx",header=None)
   x_points = list(df.iloc[:,0])
   y_points = list(df.iloc[:,1])
@@ -95,4 +95,4 @@ def contourData(b_star_input,h_star_input,contact_angle_predicted):
   return contour_b,contour_h
   # plt.scatter(contour_b,contour_h)
 
-contour_b, contour_h = contourData(1.5,1.5,60)
+contour_b, contour_h = contourData(1.5,1.5)
