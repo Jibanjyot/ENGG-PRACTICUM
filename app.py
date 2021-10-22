@@ -10,6 +10,8 @@ app = Flask(__name__, static_url_path='')
 CORS(app)
 contactAngle = pickle.load(open('predictContactAngle.pkl', 'rb'))
 regimePrediction = pickle.load(open('regimePredict.pkl', 'rb'))
+# countourPrediction = pickle.load(open('contourPredict.pkl','rb'))
+from contourPredict import *
 
 
 @app.route('/predict/contactAngle', methods=['POST'])
@@ -30,6 +32,13 @@ def regimePredict():
     prediction = regimePrediction.predict([x_in])
     print(prediction[0])
     return str(prediction[0])
+
+@app.route('/predict/contour',methods=['POST'])
+def contourPredict():
+    x_input = float(request.form.get("x_input"))
+    y_input = float(request.form.get("y_input"))
+    inp= [x_input,y_input]
+    return jsonify(fun(x_input,y_input))
 
 
 @app.route('/test', methods=['GET'])
