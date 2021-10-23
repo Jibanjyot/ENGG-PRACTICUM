@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from scipy import interpolate
+import pickle
 
 df_h = pd.read_csv("BohDataN.csv",header=None)
 df_b = pd.read_csv("BorDataN.csv",header=None)
@@ -36,3 +37,7 @@ x_new= 1.5758
 y_new = 1.7453
 
 znew = g(x_new,y_new)
+pickle.dump(g,open('predictVolume.pkl','wb'))
+loaded_model=pickle.load(open('predictVolume.pkl','rb'))
+result=loaded_model(x_new,y_new)
+print(result[0])

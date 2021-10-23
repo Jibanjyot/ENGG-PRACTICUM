@@ -11,6 +11,7 @@ CORS(app)
 contactAngle = pickle.load(open('predictContactAngle.pkl', 'rb'))
 regimePrediction = pickle.load(open('regimePredict.pkl', 'rb'))
 # countourPrediction = pickle.load(open('contourPredict.pkl','rb'))
+volumPred= pickle.load(open('predictVolume.pkl','rb'))
 from contourPredict import *
 
 
@@ -20,6 +21,14 @@ def predict():
     x_new = float(request.form.get("x"))
     y_new = float(request.form.get('y'))
     prediction = contactAngle(x_new, y_new)
+    return str(prediction[0])
+
+@app.route('/predict/volume', methods=['POST'])
+def volumePredict():
+    # Set x and y in form value
+    x_new = float(request.form.get("x"))
+    y_new = float(request.form.get("y"))
+    prediction = volumPred(x_new, y_new)
     return str(prediction[0])
 
 
