@@ -16,35 +16,37 @@ def fun(x_inp,y_inp):
     tck = splrep(x_points, y_points)
 
 
-    df_h = pd.read_csv("BohDataN.csv",header=None)
-    df_b = pd.read_csv("BorDataN.csv",header=None)
-    df_c = pd.read_csv("CADataN.csv",header=None)
+    # df_h = pd.read_csv("BohDataN.csv",header=None)
+    # df_b = pd.read_csv("BorDataN.csv",header=None)
+    # df_c = pd.read_csv("CADataN.csv",header=None)
 
-    for i in range(0,324):
-        df_h[i] = df_h[i].fillna(99999)
-        df_b[i] = df_b[i].fillna(99999)
-        df_c[i] = df_c[i].fillna(99999)
+    # for i in range(0,324):
+    #     df_h[i] = df_h[i].fillna(99999)
+    #     df_b[i] = df_b[i].fillna(99999)
+    #     df_c[i] = df_c[i].fillna(99999)
 
-    x1 = []
-    x2 = []
-    y1 = []
-    for i in range(0,150):
-        for j in range(0,324):
-            if(df_h.iloc[i,j]==99999):
-                continue
-            else:
-                x2.append(df_h.iloc[i,j])
-                x1.append(df_b.iloc[i,j])
-                y1.append(df_c.iloc[i,j])
+    # x1 = []
+    # x2 = []
+    # y1 = []
+    # for i in range(0,150):
+    #     for j in range(0,324):
+    #         if(df_h.iloc[i,j]==99999):
+    #             continue
+    #         else:
+    #             x2.append(df_h.iloc[i,j])
+    #             x1.append(df_b.iloc[i,j])
+    #             y1.append(df_c.iloc[i,j])
 
     #x2 ia hstar
     #x1 is b star
-    x = np.array(x1)
-    y = np.array(x2)
-    xg, yg = np.meshgrid(x, y,indexing='ij', sparse=True)
-    z = np.array(y1)
-    g = interpolate.interp2d(x, y, z, kind='quintic')
+    # x = np.array(x1)
+    # y = np.array(x2)
+    # xg, yg = np.meshgrid(x, y,indexing='ij', sparse=True)
+    # z = np.array(y1)
+    # g = interpolate.interp2d(x, y, z, kind='quintic')
 
+    g=pickle.load(open('predictContactAngle.pkl','rb'))
+    result=g(x_inp,y_inp)
 
     x_input = x_inp
     y_input = y_inp
@@ -91,14 +93,43 @@ def fun(x_inp,y_inp):
             y_out = interpolate.splev(i, tck)
             if y_out-j < 0:
                 continue
-            contactangle = round(g(i,j)[0],0)
+            contactangle = round(g(i,j)[0],1)
             if contactangle == c_angle_input:
                 contour_b.append(i)
                 contour_h.append(j)
     
-    return contour_b,contour_h
+    #print(contour_b)
+    #print(contour_h)
+    fin_contourA=[]
+    fin_contourB=[]
+    x=0
+    y=0
+    x_an=0
+    y_an=0
+    num=0
+    ln=len(contour_b)
+    while num<ln:
+        mn=float('inf')
+        for i,j in zip(contour_b,contour_h):        
+            if (i-x)*(i-x)+(j-y)*(j-y)<mn:
+                mn=(i-x)*(i-x)+(j-y)*(j-y)
+                x_an=i
+                y_an=j
+        contour_b.remove(x_an)
+        contour_h.remove(y_an)
+        fin_contourA.append(x_an)
+        fin_contourB.append(y_an)
+        x=x_an
+        y=y_an
+        num+=1
+    
+    print(fin_contourA)
+    print(fin_contourB)
+    plt.plot(fin_contourA,fin_contourB)
+    plt.show()
+    return fin_contourA,fin_contourB
 
-
+fun(0.25,1)
     # pickle.dump(tck1,open('contourPredict.pkl','wb'))
     # loaded_model=pickle.load(open('contourPredict.pkl','rb'))
 # inp=[x_input,y_input]
