@@ -61,8 +61,29 @@
       }  
     }
     function mFunction(){
-      myFunction()
       predictRegime()
+      const XHR1 = new XMLHttpRequest(),
+      FD1  = new FormData();
+
+      var x = document.getElementById("hstar").value;
+      var y = document.getElementById("bstar").value;
+
+      FD1.append( "x", x );
+      FD1.append( "y", y );
+
+      XHR1.open( 'POST', 'http://127.0.0.1:5000/predict/contactAngle' );
+
+      // Send our FormData object; HTTP headers are set automatically
+      XHR1.send(FD1);
+
+      console.log("send")
+      XHR1.onload = function(){
+          var x = XHR1.response
+          console.log(x)
+          document.getElementById("res").innerHTML ="Contact Angle = "+ parseFloat(x).toFixed(4)+"<span>&#176;</span>";
+    } 
+
+
       const XHR = new XMLHttpRequest(),
       FD  = new FormData();
 
@@ -70,31 +91,19 @@
       var y = document.getElementById("bstar").value;
       console.log("HELLO")
       // Push our data into our FormData object
-      FD.append( "x", x );
-      FD.append( "y", y );
+      FD.append( "x_input", x );
+      FD.append( "y_input", y );
 
-        // Define what happens on successful data submission
-      //   XHR.addEventListener( 'load', function( event ) {
-      //     alert( 'Yeah! Data sent and response loaded.' );
-      //   } );
-
-      //  // Define what happens in case of error
-      //   XHR.addEventListener(' error', function( event ) {
-      //     alert( 'Oops! Something went wrong.' );
-      //   } );
-
-      // Set up our request
-      XHR.open( 'POST', 'http://127.0.0.1:5000/predict/contactAngle' );
+      XHR.open( 'POST', 'http://127.0.0.1:5000/predict/contour' );
 
       // Send our FormData object; HTTP headers are set automatically
       XHR.send(FD);
 
       console.log("send")
       XHR.onload = function(){
-          console.log(XHR.response)
-          var x = XHR.response
+          var x = JSON.parse(XHR.response)
           console.log(x)
-          document.getElementById("res").innerHTML ="Contact Angle = "+ parseFloat(x).toFixed(4)+"<span>&#176;</span>";
+          myFunction(x)
     } 
   }
     </script>
