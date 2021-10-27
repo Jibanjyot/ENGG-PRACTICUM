@@ -88,10 +88,22 @@ var layout = {
 Plotly.newPlot('tester', [trace6,trace1,trace2,trace3,trace4,trace5], layout, { scrollZoom: true });
 
 
-function myFunction() {
+function myFunction(x) {
     let hstar = document.getElementById("hstar").value;
     let bstar = document.getElementById("bstar").value;
-    console.log(hstar);
+
+    var trace7 = {
+        x: x[0],
+        y: x[1],
+        mode: 'lines',
+        name: 'contour',
+        text: ['tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object'],
+        line: { shape: 'spline' },
+        marker: {
+            color: 'rgb(255, 255, 255)'
+        },
+        type: 'line'
+    }
     var point = {
         x: [hstar],
         y: [bstar],
@@ -99,6 +111,6 @@ function myFunction() {
         mode: 'markers',
         type: 'scatter'
     };
-    Plotly.react('tester', [trace6,trace1,trace2,trace3,trace4,trace5, point], layout, { scrollZoom: true});
+    Plotly.react('tester', [trace6,trace1,trace2,trace3,trace4,trace5, point,trace7], layout, { scrollZoom: true});
 }
 
