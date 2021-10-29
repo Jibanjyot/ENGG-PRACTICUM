@@ -13,7 +13,10 @@ regimePrediction = pickle.load(open('regimePredict.pkl', 'rb'))
 # countourPrediction = pickle.load(open('contourPredict.pkl','rb'))
 volumPred= pickle.load(open('predictVolume.pkl','rb'))
 from contourPredict import *
-
+from get_bV_From_Ch import *
+from get_Cb_From_Vh import *
+from get_Ch_From_Vb import *
+from get_hV_From_Cb import *
 
 @app.route('/predict/contactAngle', methods=['POST'])
 def predict():
@@ -22,6 +25,7 @@ def predict():
     y_new = float(request.form.get('y'))
     prediction = contactAngle(x_new, y_new)
     return str(prediction[0])
+
 
 @app.route('/predict/volume', methods=['POST'])
 def volumePredict():
@@ -49,6 +53,33 @@ def contourPredict():
     inp= [x_input,y_input]
     return jsonify(fun(x_input,y_input))
 
+@app.route('/predict/bv',methods=['POST'])
+def predict_bv():
+    x_input = float(request.form.get("x_input"))   #contact angle
+    y_input = float(request.form.get("y_input"))   #h
+    inp= [x_input,y_input]
+    return jsonify(fun_bv(x_input,y_input))
+
+@app.route('/predict/cb',methods=['POST'])
+def predict_cb():
+    x_input = float(request.form.get("x_input"))    #h
+    y_input = float(request.form.get("y_input"))    #v
+    inp= [x_input,y_input]
+    return jsonify(fun_cb(x_input,y_input))
+
+@app.route('/predict/ch',methods=['POST'])
+def predict_ch():
+    x_input = float(request.form.get("x_input"))    #b
+    y_input = float(request.form.get("y_input"))    #v
+    inp= [x_input,y_input]
+    return jsonify(fun_ch(x_input,y_input))
+
+@app.route('/predict/hv',methods=['POST'])
+def predict_hv():
+    x_input = float(request.form.get("x_input"))    #b
+    y_input = float(request.form.get("y_input"))    #c
+    inp= [x_input,y_input]
+    return jsonify(fun_hv(x_input,y_input))
 
 @app.route('/test', methods=['GET'])
 def test():
