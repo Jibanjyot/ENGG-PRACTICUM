@@ -53,7 +53,7 @@
           if(x == "13"){
             str = "Bulb"
           }
-          document.getElementById("shape").innerHTML = "Regime Shape= "+ str;
+          //document.getElementById("shape").innerHTML = "Regime Shape= "+ str;
       }  
     }
     function predictContactAngle(){
@@ -69,7 +69,7 @@
         XHR1.onload = function(){
             var x = XHR1.response
             console.log(x)
-            document.getElementById("res").innerHTML ="Contact Angle = "+ parseFloat(x).toFixed(4)+"<span>&#176;</span>";
+            //document.getElementById("res").innerHTML ="Contact Angle = "+ parseFloat(x).toFixed(4)+"<span>&#176;</span>";
       } 
     }
     function predictContour(){
@@ -91,12 +91,26 @@
           myFunction(x)
     }
     }
+    function clearData(){
+      document.getElementById("angle").value=''
+      document.getElementById("hstar").value='';
+      document.getElementById("bstar").value='';
+      document.getElementById("volume").value=''
+      document.getElementById("tension").value=''
+      document.getElementById("ag").value=''
+      document.getElementById("density").value=''      
+    }
     function mFunction(){
       const contactAngle=document.getElementById("angle").value
       const h = document.getElementById("hstar").value;
       const b = document.getElementById("bstar").value;
       const volume=document.getElementById("volume").value
-      console.log({contactAngle,h,b,volume})
+      const tension=document.getElementById("tension").value
+      const ag=document.getElementById("ag").value
+      const density=document.getElementById("density").value
+      let lc=((tension*1.0)/(density*ag))
+      lc=Math.sqrt(lc).toFixed(3)
+      console.log({contactAngle,h,b,volume,lc})
       if(b && h){
           console.log("inside b and h")
           const FD1  = new FormData();
@@ -261,9 +275,14 @@
                     <input type="text" id="index" name="fname"><br><br>
                   </div>                                    
                 </div>
-                  <div class="text-center"><button type="button" class="btn btn-primary"
+                <div class="buttons">
+                  <div class="text-center" style="padding:40px"><button type="button" class="btn btn-primary"
                           onclick="mFunction()">Calculate!</button>
                   </div>
+                  <div class="text-center"><button type="button" class="btn btn-primary"
+                          onclick="clearData()">Clear data!</button>
+                  </div>
+                </div>                    
             </div>
         </div>     
         <div class="group">
