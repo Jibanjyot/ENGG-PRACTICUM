@@ -75,15 +75,35 @@ var layout = {
       r: 0,
       l:200
     },
-    xaxis: { range: [0, 3] },
-    yaxis: { range: [0, 3] },
-    legend: {
-        y: 0.5,
-        traceorder: 'reversed',
-        font: { size: 16 },
-        yref: 'paper'
+    title: {
+        text:'Tensiometric Chart',
+        font: {
+          family: 'Roboto',
+          size: 24
+        },
+        xref: 'paper',
+        x: 1.5,
+    },
+    xaxis: { range: [0, 3],
+        title: {
+            text: 'Base Radius (b*)',
+            font: {
+              family: 'Roboto',
+              size: 18,
+              color: '#7f7f7f'
+            }
+          }
+    },
+    yaxis: { range: [0, 3],
+        title: {
+            text: 'Height (h*)',
+            font: {
+              family: 'Roboto',
+              size: 18,
+              color: '#7f7f7f'
+            }
+          }
     }
-
 };
 Plotly.newPlot('tester', [trace1,trace2,trace3,trace4,trace5], layout, { scrollZoom: true });
 
@@ -98,7 +118,11 @@ function myFunction(x) {
         mode: 'lines',
         name: 'contour',
         text: ['tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object'],
-        line: { shape: 'spline' },
+        line: { shape: 'spline',
+        
+            dash: 'dashdot',
+            width: 4
+           },
         marker: {
             color: 'rgb(255, 255, 255)'
         },
