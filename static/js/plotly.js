@@ -6,7 +6,7 @@ var trace1 = {
     fill: 'tozeroy',
     mode: 'lines',
     name: 'thin film',
-    text: ['tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object'],
+    //text: ['tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object'],//
     line: { shape: 'spline' },
     type: 'scatter'
     
@@ -17,7 +17,7 @@ var trace2 = {
     fill: 'tozeroy',
     mode: 'lines',
     name: 'balloon',
-    text: ['tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object'],
+    //text: ['tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object'],//
     line: { shape: 'spline' },
     type: 'scatter'
 };
@@ -27,7 +27,7 @@ var trace3 = {
     fill: 'tozeroy',
     mode: 'lines',
     name: 'Bell',
-    text: ['tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object'],
+    //text: ['tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object'],//
     line: { shape: 'spline' },
     type: 'scatter'
 };
@@ -47,7 +47,7 @@ var trace5 = {
     fill: 'tozeroy',
     mode: 'lines',
     name: 'Bulb',
-    text: ['tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object'],
+    //text: ['tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object'],//
     line: { shape: 'spline' },
     
     type: 'scatter'
@@ -58,7 +58,6 @@ var trace6 = {
     fill: 'tozeroy',
     mode: 'lines',
     name: 'Bulb',
-    text: ['tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object'],
     line: { shape: 'spline' },
     marker: {
         color: 'rgb(255, 255, 255)'
@@ -69,8 +68,8 @@ var trace6 = {
 
 var layout = {
     autosize: true,
-    width: 900,
-    height: 800,
+    width: 1200,
+    height: 950,
     margin: {
       r: 0,
       l:200
@@ -85,6 +84,8 @@ var layout = {
         x: 1.5,
     },
     xaxis: { range: [0, 3],
+        showgrid: false,
+
         title: {
             text: 'Base Radius (b*)',
             font: {
@@ -95,6 +96,8 @@ var layout = {
           }
     },
     yaxis: { range: [0, 3],
+        showgrid: false,
+
         title: {
             text: 'Height (h*)',
             font: {
@@ -105,7 +108,7 @@ var layout = {
           }
     }
 };
-Plotly.newPlot('tester', [trace1,trace2,trace3,trace4,trace5], layout, { scrollZoom: true });
+Plotly.newPlot('tester', [trace1,trace2,trace3,trace4,trace5], layout);
 
 
 function myFunction(x) {
@@ -135,6 +138,6 @@ function myFunction(x) {
         mode: 'markers',
         type: 'scatter'
     };
-    Plotly.react('tester', [trace1,trace2,trace3,trace4,trace5, point,trace7], layout, { scrollZoom: true});
+    Plotly.react('tester', [trace1,trace2,trace3,trace4,trace5, point,trace7], layout);
 }
 

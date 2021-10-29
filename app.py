@@ -24,7 +24,7 @@ def predict():
     x_new = float(request.form.get("x"))
     y_new = float(request.form.get('y'))
     prediction = contactAngle(x_new, y_new)
-    return str(prediction[0])
+    return str(round(prediction[0],0))
 
 
 @app.route('/predict/volume', methods=['POST'])
@@ -33,7 +33,7 @@ def volumePredict():
     x_new = float(request.form.get("x"))
     y_new = float(request.form.get("y"))
     prediction = volumPred(x_new, y_new)
-    return str(prediction[0])
+    return str(round(prediction[0],2))
 
 
 @app.route('/predict/regime', methods=['POST'])
