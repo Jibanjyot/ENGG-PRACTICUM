@@ -29,7 +29,6 @@
 
       var x = document.getElementById("hstar").value;
       var y = document.getElementById("bstar").value;
-      console.log("HELLO")
       // Push our data into our FormData object
       FD.append( "b_input", x );
       FD.append( "h_input", y );
@@ -38,11 +37,9 @@
 
       // Send our FormData object; HTTP headers are set automatically
       XHR.send(FD);
-      console.log("send")
       XHR.onload = function(){
           console.log(XHR.response)
           var x = XHR.response
-          console.log(x)
           str =""
           if (x == "10"){
              str = "Bowl" 
@@ -56,55 +53,119 @@
           if(x == "13"){
             str = "Bulb"
           }
-          console.log(str)
           document.getElementById("shape").innerHTML = "Regime Shape= "+ str;
       }  
     }
-    function mFunction(){
-      predictRegime()
-      const XHR1 = new XMLHttpRequest(),
-      FD1  = new FormData();
-
-      var x = document.getElementById("hstar").value;
-      var y = document.getElementById("bstar").value;
-
-      FD1.append( "x", x );
-      FD1.append( "y", y );
-
-      XHR1.open( 'POST', 'http://127.0.0.1:5000/predict/contactAngle' );
-
-      // Send our FormData object; HTTP headers are set automatically
-      XHR1.send(FD1);
-
-      console.log("send")
-      XHR1.onload = function(){
-          var x = XHR1.response
-          console.log(x)
-          document.getElementById("res").innerHTML ="Contact Angle = "+ parseFloat(x).toFixed(4)+"<span>&#176;</span>";
-    } 
-
-
+    function predictContactAngle(){
+        var x = document.getElementById("hstar").value;
+        var y = document.getElementById("bstar").value;
+        const XHR1 = new XMLHttpRequest(),
+        FD1  = new FormData();
+        FD1.append( "x", x );
+        FD1.append( "y", y );
+        XHR1.open( 'POST', 'http://127.0.0.1:5000/predict/contactAngle' );
+        // Send our FormData object; HTTP headers are set automatically
+        XHR1.send(FD1);
+        XHR1.onload = function(){
+            var x = XHR1.response
+            console.log(x)
+            document.getElementById("res").innerHTML ="Contact Angle = "+ parseFloat(x).toFixed(4)+"<span>&#176;</span>";
+      } 
+    }
+    function predictContour(){
       const XHR = new XMLHttpRequest(),
       FD  = new FormData();
-
       var x = document.getElementById("hstar").value;
       var y = document.getElementById("bstar").value;
       console.log("HELLO")
       // Push our data into our FormData object
       FD.append( "x_input", x );
       FD.append( "y_input", y );
-
       XHR.open( 'POST', 'http://127.0.0.1:5000/predict/contour' );
-
       // Send our FormData object; HTTP headers are set automatically
       XHR.send(FD);
-
       console.log("send")
       XHR.onload = function(){
           var x = JSON.parse(XHR.response)
           console.log(x)
           myFunction(x)
-    } 
+    }
+    }
+    function mFunction(){
+      const contactAngle=document.getElementById("angle").value
+      const h = document.getElementById("hstar").value;
+      const b = document.getElementById("bstar").value;
+      const volume=document.getElementById("volume").value
+      console.log({contactAngle,h,b,volume})
+      if(contactAngle && h){
+          const FD1  = new FormData();
+          const XHR1=new XMLHttpRequest()
+          FD1.append( "x_input", contactAngle );
+          FD1.append( "y_input", h );
+          XHR1.open( 'POST', 'http://127.0.0.1:5000/predict/bv');
+          // Send our FormData object; HTTP headers are set automatically
+          XHR1.send(FD1);
+          XHR1.onload = function(){
+              var x = JSON.parse(XHR1.response)
+              document.getElementById("volume").value=x[0]
+              document.getElementById("bstar").value=x[1]
+              predictRegime()
+              predictContactAngle()
+              predictContour()
+          }         
+      }
+      else if(h && volume){
+          const FD1  = new FormData();
+          const XHR1=new XMLHttpRequest()
+          FD1.append( "x_input", h );
+          FD1.append( "y_input", volume );
+          XHR1.open( 'POST', 'http://127.0.0.1:5000/predict/cb');
+          // Send our FormData object; HTTP headers are set automatically
+          XHR1.send(FD1);
+          XHR1.onload = function(){
+              var x = JSON.parse(XHR1.response)
+              document.getElementById("angle").value=x[1]
+              document.getElementById("bstar").value=x[0]
+              predictRegime()
+              predictContactAngle()
+              predictContour()
+          }         
+      }
+      else if(b && volume){
+          console.log('hi')
+          const FD1  = new FormData();
+          const XHR1=new XMLHttpRequest()
+          FD1.append( "x_input", b );
+          FD1.append( "y_input", volume );
+          XHR1.open( 'POST', 'http://127.0.0.1:5000/predict/ch');
+          // Send our FormData object; HTTP headers are set automatically
+          XHR1.send(FD1);
+          XHR1.onload = function(){
+              var x = JSON.parse(XHR1.response)
+              document.getElementById("angle").value=x[1]
+              document.getElementById("hstar").value=x[0]
+              predictRegime()
+              predictContactAngle()
+              predictContour()
+          }         
+      }
+      else if(contactAngle && b){
+          const FD1  = new FormData();
+          const XHR1=new XMLHttpRequest()
+          FD1.append( "y_input", contactAngle );
+          FD1.append( "x_input", b );
+          XHR1.open( 'POST', 'http://127.0.0.1:5000/predict/hv');
+          // Send our FormData object; HTTP headers are set automatically
+          XHR1.send(FD1);
+          XHR1.onload = function(){
+              var x = JSON.parse(XHR1.response)
+              document.getElementById("volume").value=x[0]
+              document.getElementById("hstar").value=x[1]
+              predictRegime()
+              predictContactAngle()
+              predictContour()
+          }         
+      }                  
   }
     </script>
     <nav class="navbar navbar-expand-lg navbar-light bg-light ">

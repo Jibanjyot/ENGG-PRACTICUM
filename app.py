@@ -55,6 +55,7 @@ def contourPredict():
 
 @app.route('/predict/bv',methods=['POST'])
 def predict_bv():
+    print(request.form.get("x_input"))
     x_input = float(request.form.get("x_input"))   #contact angle
     y_input = float(request.form.get("y_input"))   #h
     inp= [x_input,y_input]
@@ -62,6 +63,7 @@ def predict_bv():
 
 @app.route('/predict/cb',methods=['POST'])
 def predict_cb():
+    print(request.form.get("x_input"))
     x_input = float(request.form.get("x_input"))    #h
     y_input = float(request.form.get("y_input"))    #v
     inp= [x_input,y_input]
