@@ -85,7 +85,7 @@ var layout = {
     }
 
 };
-Plotly.newPlot('tester', [trace6,trace1,trace2,trace3,trace4,trace5], layout, { scrollZoom: true });
+Plotly.newPlot('tester', [trace1,trace2,trace3,trace4,trace5], layout, { scrollZoom: true });
 
 
 function myFunction(x) {
@@ -111,6 +111,6 @@ function myFunction(x) {
         mode: 'markers',
         type: 'scatter'
     };
-    Plotly.react('tester', [trace6,trace1,trace2,trace3,trace4,trace5, point,trace7], layout, { scrollZoom: true});
+    Plotly.react('tester', [trace1,trace2,trace3,trace4,trace5, point,trace7], layout, { scrollZoom: true});
 }
 
