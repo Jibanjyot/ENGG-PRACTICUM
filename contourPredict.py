@@ -68,9 +68,12 @@ def fun(x_inp, y_inp):
         ##warnings.filterwarnings("ignore", category=RuntimeWarning)
         # we need to output znew[0]
         # print(round(contactAngle[0],0))
-
-    b_star_array = np.arange(0, 4, 0.01)
-    h_star_array = np.arange(0, 4, 0.01)
+    if result[0]>=95:
+        b_star_array = np.arange(0, 1, 0.005)
+        h_star_array = np.arange(0, 2, 0.005)
+    else:
+        b_star_array = np.arange(0, 4, 0.01)
+        h_star_array = np.arange(0, 4, 0.01)
     # h_input = 1.5
     c_angle_input = round(contactAngle[0], 0)
     # print(b_star_array)
