@@ -136,8 +136,12 @@ function myFunction(x) {
         y: [bstar],
         name: 'point',
         mode: 'markers',
-        type: 'scatter'
+        type: 'scatter',
+        marker: {
+            color: 'black',
+            size: 15,
+          },
     };
-    Plotly.react('tester', [trace1,trace2,trace3,trace4,trace5, point,trace7], layout);
+    Plotly.react('tester', [trace1,trace2,trace3,trace4,trace5, trace7,point], layout);
 }
 
