@@ -101,13 +101,45 @@
       document.getElementById("density").value=''      
     }
     function mFunction(){
+      let total_input = 0; 
       const contactAngle=document.getElementById("angle").value
+      
       const h = document.getElementById("hstar").value;
+      
       const b = document.getElementById("bstar").value;
+      
       const volume=document.getElementById("volume").value
+      
+      
       const tension=document.getElementById("tension").value
       const ag=document.getElementById("ag").value
       const density=document.getElementById("density").value
+      if (tension == "" || ag == "" || density == "") {
+          alert("One or more of the required fields are empty!!");
+          return false;
+      }
+      if(contactAngle){
+        total_input = total_input+1;
+      }
+      if(h){
+        total_input = total_input+1;
+      }
+      if(b){
+        total_input = total_input+1;
+      }
+      if(volume){
+        total_input = total_input+1;
+      }
+      if(total_input>2){
+          alert("More than 2 input field have been given!! Please enter only two");
+          return false;
+
+      }
+      if(total_input<2){
+          alert("Less than 2 input field have been given!! Please enter only two");
+          return false;
+
+      }
       let lc=((tension*1.0)/(density*ag))
       lc=Math.sqrt(lc).toFixed(3)
       console.log({contactAngle,h,b,volume,lc})
@@ -208,7 +240,7 @@
               predictContactAngle()
               predictContour()
           }         
-      }                  
+      }        
   }
     </script>
     <nav class="navbar navbar-expand-lg navbar-light bg-light ">
@@ -234,6 +266,7 @@
        <div class="p-3 mb-3" >
         <div class="d-flex justify-content-center"><h5 class="color-palette-heading col-lg-6 ">Below three fields are required.</h5></div> 
           <div class="input-data">
+           
             <div class="textbox">
               <label for="hstar">Surface tension, &#963; (N/m) :</label>
               <input type="text" id="tension" name="fname" required><br><br>
@@ -245,7 +278,8 @@
               <div class="textbox">
               <label for="bstar">Density difference, &Delta;&rho; (Kg/m<sup>3</sup>) :</label>
               <input type="text" id="density" name="fname" required><br><br>
-            </div>                  
+            </div>
+                           
           </div>
         </div>
      </div>
