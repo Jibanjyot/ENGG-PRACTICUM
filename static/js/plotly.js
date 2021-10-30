@@ -132,8 +132,8 @@ function myFunction(x) {
         type: 'line'
     }
     var point = {
-        x: [hstar],
-        y: [bstar],
+        x: [bstar],
+        y: [hstar],
         name: 'point',
         mode: 'markers',
         type: 'scatter',
