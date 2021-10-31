@@ -75,8 +75,8 @@
     function predictContour(){
       const XHR = new XMLHttpRequest(),
       FD  = new FormData();
-      var x = document.getElementById("hstar").value;
-      var y = document.getElementById("bstar").value;
+      var x = document.getElementById("bstar").value;
+      var y = document.getElementById("hstar").value;
       console.log("HELLO")
       // Push our data into our FormData object
       FD.append( "x_input", x );
