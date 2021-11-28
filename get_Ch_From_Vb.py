@@ -21,12 +21,12 @@ def fun_ch(x_inp,y_inp):
   for j in y_new:
     volume_given_result = volume_predicted(x_new,j)[0]
     # print(contact_angle_result)
-    if(round(volume_given_result,rnd) == round(volume_given_result,rnd)):
+    # if(round(volume_given_result,rnd) == round(volume_given_result,rnd)):
       # print(i)
-      diff = abs(volume_given-volume_given_result)
-      if(diff<=min_diff):
-        min_diff = diff
-        h_output = j
+    diff = abs(volume_given-volume_given_result)
+    if(diff<=min_diff):
+      min_diff = diff
+      h_output = j
 
   #print(h_output)
   C_output = round(contact_angle_predicted(x_new,h_output)[0],3)

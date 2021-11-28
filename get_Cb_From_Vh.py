@@ -21,12 +21,12 @@ def fun_cb(x_inp,y_inp):
   for i in x_new:
     volume_given_result = volume_predicted(i,y_new)[0]
     # print(contact_angle_result)
-    if(round(volume_given_result,rnd) == round(volume_given_result,rnd)):
+    # if(round(volume_given_result,rnd) == round(volume_given_result,rnd)):
       # print(i)
-      diff = abs(volume_given-volume_given_result)
-      if(diff<=min_diff):
-        min_diff = diff
-        b_output = i
+    diff = abs(volume_given-volume_given_result)
+    if(diff<=min_diff):
+      min_diff = diff
+      b_output = i
 
   #print(b_output)
   C_output = round(contact_angle_predicted(b_output,y_new)[0],0)

@@ -15,11 +15,11 @@ def fun_hv(x_inp,y_inp):
   min_diff = 99999
   for j in y_new:
     contact_angle_result = contact_angle_predicted(x_new,j)[0]
-    if(round(contact_angle_result,rnd) == round(contact_angle_given,rnd)):
-      diff = abs(contact_angle_given-contact_angle_result)
-      if(diff<=min_diff):
-        min_diff = diff
-        h_output = j
+    # if(round(contact_angle_result,rnd) == round(contact_angle_given,rnd)):
+    diff = abs(contact_angle_given-contact_angle_result)
+    if(diff<=min_diff):
+      min_diff = diff
+      h_output = j
 
   #print(h_output)
   V_output = round(volume_predicted(x_new,h_output)[0],3)

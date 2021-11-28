@@ -36,7 +36,7 @@ def predictShapeIndex():
     x_new = float(request.form.get("x"))
     y_new = float(request.form.get('y'))
     prediction = shapeIndex(x_new, y_new)
-    return str(round(prediction[0],0))
+    return str(round(prediction[0],3))
 
 @app.route('/predict/volumeContour', methods=['POST'])
 def volumeContourpredict():
