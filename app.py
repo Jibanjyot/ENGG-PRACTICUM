@@ -17,6 +17,7 @@ from get_bV_From_Ch import *
 from get_Cb_From_Vh import *
 from get_Ch_From_Vb import *
 from get_hV_From_Cb import *
+from getVolumeContour import *
 
 @app.route('/predict/contactAngle', methods=['POST'])
 def predict():
@@ -26,6 +27,12 @@ def predict():
     prediction = contactAngle(x_new, y_new)
     return str(round(prediction[0],0))
 
+@app.route('/predict/volumeContour', methods=['POST'])
+def volumeContourpredict():
+    # Set x and y in form value
+    x_new = float(request.form.get("x"))
+    y_new = float(request.form.get('y'))
+    return jsonify(getVolumeContour(x_new, y_new))
 
 @app.route('/predict/volume', methods=['POST'])
 def volumePredict():

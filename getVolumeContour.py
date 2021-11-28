@@ -3,13 +3,13 @@ import numpy as np
 from scipy import interpolate
 import matplotlib.pyplot as plt
 import pickle
-def fun(x_inp, y_inp):
+def getVolumeContour(x_inp, y_inp):
     df_h = pd.read_csv("BohDataN.csv",header=None)
     df_b = pd.read_csv("BorDataN.csv",header=None)
-    df_s = pd.read_csv("CADataN.csv",header=None)
+    df_s = pd.read_csv("VolumeDataN.csv",header=None)
 
-    g = pickle.load(open('predictContactAngle.pkl', 'rb'))
-    c_angle = round(g(x_inp,y_inp)[0],0)
+    g = pickle.load(open('predictVolume.pkl', 'rb'))
+    volume = round(g(x_inp,y_inp)[0],0)
 
     y = df_h.to_numpy()
     x = df_b.to_numpy()
@@ -18,7 +18,7 @@ def fun(x_inp, y_inp):
 
     fig, ax = plt.subplots(1, 1)  
     # plots contour lines
-    cs = ax.contour(x, y, z, [c_angle])
+    cs = ax.contour(x, y, z, [volume])
 
     ax.set_title('Contour Plot')
     ax.set_xlabel('b')
