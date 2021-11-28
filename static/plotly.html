@@ -72,6 +72,22 @@
             //document.getElementById("res").innerHTML ="Contact Angle = "+ parseFloat(x).toFixed(4)+"<span>&#176;</span>";
       } 
     }
+    function predictShapeIndex(){
+        var x = document.getElementById("hstar").value;
+        var y = document.getElementById("bstar").value;
+        const XHR1 = new XMLHttpRequest(),
+        FD1  = new FormData();
+        FD1.append( "x", x );
+        FD1.append( "y", y );
+        XHR1.open( 'POST', 'http://127.0.0.1:5000/predict/shapeIndex' );
+        // Send our FormData object; HTTP headers are set automatically
+        XHR1.send(FD1);
+        XHR1.onload = function(){
+            var x = XHR1.response
+            console.log(x)
+            //document.getElementById("res").innerHTML ="Contact Angle = "+ parseFloat(x).toFixed(4)+"<span>&#176;</span>";
+      } 
+    }
     function predictContour(){
       const XHR = new XMLHttpRequest(),
       FD  = new FormData();
@@ -106,7 +122,7 @@
           myFunction(x,y)
     }
     }
-    }
+  }
 
     function clearData(){
       document.getElementById("angle").value=''
@@ -176,6 +192,7 @@
               document.getElementById("angle").value=x
               predictRegime()
               predictContactAngle()
+              predictShapeIndex()
               predictContour()
           }  
           XHR2.open( 'POST', 'http://127.0.0.1:5000/predict/volume');
@@ -186,6 +203,7 @@
               document.getElementById("volume").value=x
               predictRegime()
               predictContactAngle()
+              predictShapeIndex()
               predictContour()
           }      
       }
@@ -203,6 +221,7 @@
               document.getElementById("bstar").value=x[0]
               predictRegime()
               predictContactAngle()
+              predictShapeIndex()
               predictContour()
           }         
       }
@@ -220,6 +239,7 @@
               document.getElementById("bstar").value=x[0]
               predictRegime()
               predictContactAngle()
+              predictShapeIndex()
               predictContour()
           }         
       }
@@ -238,6 +258,7 @@
               document.getElementById("hstar").value=x[0]
               predictRegime()
               predictContactAngle()
+              predictShapeIndex()
               predictContour()
           }         
       }
@@ -255,6 +276,7 @@
               document.getElementById("hstar").value=x[1]
               predictRegime()
               predictContactAngle()
+              predictShapeIndex()
               predictContour()
           }         
       }        
