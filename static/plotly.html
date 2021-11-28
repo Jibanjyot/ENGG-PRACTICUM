@@ -335,8 +335,8 @@
           XHR1.send(FD1);
           XHR1.onload = function(){
               var x = JSON.parse(XHR1.response)
-              document.getElementById("volume").value=x[0]
-              document.getElementById("hstar").value=x[1]
+              document.getElementById("volume").value=x[1]
+              document.getElementById("hstar").value=x[0]
               const h = document.getElementById("hstar").value;
               const b = document.getElementById("bstar").value;
               const tempFD  = new FormData();
