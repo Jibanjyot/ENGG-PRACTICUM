@@ -181,6 +181,7 @@
           const FD1  = new FormData();
           const XHR1=new XMLHttpRequest()
           const XHR2=new XMLHttpRequest()
+          const XHR3=new XMLHttpRequest()
           FD1.append( "x", b );
           FD1.append( "y", h );
           XHR1.open( 'POST', 'http://127.0.0.1:5000/predict/contactAngle');
@@ -205,11 +206,25 @@
               predictContactAngle()
               predictShapeIndex()
               predictContour()
+          }
+          XHR3.open( 'POST', 'http://127.0.0.1:5000/predict/shapeIndex');
+          // Send our FormData object; HTTP headers are set automatically
+          XHR3.send(FD1);  
+          XHR3.onload = function(){
+              var x = JSON.parse(XHR3.response)
+              console.log("shape index")
+              console.log(x)
+              document.getElementById("index").value=x
+              predictRegime()
+              predictContactAngle()
+              predictShapeIndex()
+              predictContour()
           }      
       }
       else if(contactAngle && h){
           const FD1  = new FormData();
           const XHR1=new XMLHttpRequest()
+          const XHR3=new XMLHttpRequest()
           FD1.append( "x_input", contactAngle );
           FD1.append( "y_input", h );
           XHR1.open( 'POST', 'http://127.0.0.1:5000/predict/bv');
@@ -219,10 +234,26 @@
               var x = JSON.parse(XHR1.response)
               document.getElementById("volume").value=x[1]
               document.getElementById("bstar").value=x[0]
+
+              const h = document.getElementById("hstar").value;
+              const b = document.getElementById("bstar").value;
+              const tempFD  = new FormData();
+              tempFD.append( "x", b );
+              tempFD.append( "y", h );
+              // XHR3=new XMLHttpRequest()
+              XHR3.open( 'POST', 'http://127.0.0.1:5000/predict/shapeIndex');
+              // Send our FormData object; HTTP headers are set automatically
+              XHR3.send(tempFD);  
+              XHR3.onload = function(){
+                  var x = JSON.parse(XHR3.response)
+                  console.log("shape index")
+                  console.log(x)
+                  document.getElementById("index").value=x
               predictRegime()
               predictContactAngle()
               predictShapeIndex()
               predictContour()
+              }
           }         
       }
       else if(h && volume){
@@ -237,10 +268,26 @@
               var x = JSON.parse(XHR1.response)
               document.getElementById("angle").value=x[1]
               document.getElementById("bstar").value=x[0]
+              const h = document.getElementById("hstar").value;
+              const b = document.getElementById("bstar").value;
+              const tempFD  = new FormData();
+              tempFD.append( "x", b );
+              tempFD.append( "y", h );
+              const XHR3=new XMLHttpRequest()
+              // XHR3=new XMLHttpRequest()
+              XHR3.open( 'POST', 'http://127.0.0.1:5000/predict/shapeIndex');
+              // Send our FormData object; HTTP headers are set automatically
+              XHR3.send(tempFD);  
+              XHR3.onload = function(){
+                  var x = JSON.parse(XHR3.response)
+                  console.log("shape index")
+                  console.log(x)
+                  document.getElementById("index").value=x
               predictRegime()
               predictContactAngle()
               predictShapeIndex()
               predictContour()
+              }
           }         
       }
       else if(b && volume){
@@ -256,10 +303,26 @@
               var x = JSON.parse(XHR1.response)
               document.getElementById("angle").value=x[1]
               document.getElementById("hstar").value=x[0]
+              const h = document.getElementById("hstar").value;
+              const b = document.getElementById("bstar").value;
+              const tempFD  = new FormData();
+              tempFD.append( "x", b );
+              tempFD.append( "y", h );
+              const XHR3=new XMLHttpRequest()
+              // XHR3=new XMLHttpRequest()
+              XHR3.open( 'POST', 'http://127.0.0.1:5000/predict/shapeIndex');
+              // Send our FormData object; HTTP headers are set automatically
+              XHR3.send(tempFD);  
+              XHR3.onload = function(){
+                  var x = JSON.parse(XHR3.response)
+                  console.log("shape index")
+                  console.log(x)
+                  document.getElementById("index").value=x
               predictRegime()
               predictContactAngle()
               predictShapeIndex()
               predictContour()
+              }
           }         
       }
       else if(contactAngle && b){
@@ -274,10 +337,26 @@
               var x = JSON.parse(XHR1.response)
               document.getElementById("volume").value=x[0]
               document.getElementById("hstar").value=x[1]
+              const h = document.getElementById("hstar").value;
+              const b = document.getElementById("bstar").value;
+              const tempFD  = new FormData();
+              tempFD.append( "x", b );
+              tempFD.append( "y", h );
+              const XHR3=new XMLHttpRequest()
+              // XHR3=new XMLHttpRequest()
+              XHR3.open( 'POST', 'http://127.0.0.1:5000/predict/shapeIndex');
+              // Send our FormData object; HTTP headers are set automatically
+              XHR3.send(tempFD);  
+              XHR3.onload = function(){
+                  var x = JSON.parse(XHR3.response)
+                  console.log("shape index")
+                  console.log(x)
+                  document.getElementById("index").value=x
               predictRegime()
               predictContactAngle()
               predictShapeIndex()
               predictContour()
+              }
           }         
       }        
   }
@@ -308,15 +387,15 @@
            
             <div class="textbox">
               <label for="hstar">Surface tension, &#963; (N/m) :</label>
-              <input type="text" id="tension" name="fname" required><br><br>
+              <input type="text" id="tension" name="fname" value="1" required><br><br>
             </div>
             <div class="textbox">
               <label for="bstar">Gravititational acceleration, g (m/s<sup>2</sup>):</label>
-              <input type="text" id="ag" name="fname" required><br><br>
+              <input type="text" id="ag" name="fname" value="9.8" required><br><br>
             </div>
               <div class="textbox">
               <label for="bstar">Density difference, &Delta;&rho; (Kg/m<sup>3</sup>) :</label>
-              <input type="text" id="density" name="fname" required><br><br>
+              <input type="text" id="density" name="fname" value="1" required><br><br>
             </div>
                            
           </div>

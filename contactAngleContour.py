@@ -29,7 +29,7 @@ def fun(x_inp, y_inp):
 
     x_coord = []
     y_coord = []
-    print(np.shape(x_coord))
+    # print(np.shape(x_coord))
     for item in cs.collections:
         for i in item.get_paths():
             v = i.vertices
@@ -44,7 +44,7 @@ def fun(x_inp, y_inp):
             for i in range(len(x)):
                 x_coord.append(x[i])
                 y_coord.append(y[i])
-        print(np.shape(x), np.shape(y))
+        # print(np.shape(x), np.shape(y))
     # plt.plot(x_coord,y_coord)
     # plt.show()
     # print(x_coord)
