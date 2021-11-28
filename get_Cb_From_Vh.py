@@ -29,6 +29,6 @@ def fun_cb(x_inp,y_inp):
         b_output = i
 
   #print(b_output)
-  C_output = round(contact_angle_predicted(b_output,y_new)[0],3)
+  C_output = round(contact_angle_predicted(b_output,y_new)[0],0)
   #print(C_output)
   return b_output,C_output
