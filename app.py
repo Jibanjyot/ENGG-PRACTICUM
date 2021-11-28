@@ -20,6 +20,7 @@ from get_Cb_From_Vh import *
 from get_Ch_From_Vb import *
 from get_hV_From_Cb import *
 from getVolumeContour import *
+from shapeIndexContour import *
 
 @app.route('/predict/contactAngle', methods=['POST'])
 def predict():
@@ -43,6 +44,13 @@ def volumeContourpredict():
     x_new = float(request.form.get("x"))
     y_new = float(request.form.get('y'))
     return jsonify(getVolumeContour(x_new, y_new))
+
+@app.route('/predict/shapeIndexContour', methods=['POST'])
+def shapeIndexContourpredict():
+    # Set x and y in form value
+    x_new = float(request.form.get("x"))
+    y_new = float(request.form.get('y'))
+    return jsonify(shapeIndex(x_new, y_new))
 
 @app.route('/predict/volume', methods=['POST'])
 def volumePredict():

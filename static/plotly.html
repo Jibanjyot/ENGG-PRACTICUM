@@ -119,10 +119,26 @@
       XHR1.onload = function(){
           var y = JSON.parse(XHR1.response)
           console.log(y)
-          myFunction(x,y)
+          const XHR2 = new XMLHttpRequest(),
+      FD2  = new FormData();
+      var x2 = document.getElementById("bstar").value;
+      var y2 = document.getElementById("hstar").value;
+      console.log("HELLO")
+      // Push our data into our FormData object
+      FD2.append( "x", x1 );
+      FD2.append( "y", y1 );
+      XHR2.open( 'POST', 'http://127.0.0.1:5000/predict/shapeIndexContour' );
+      // Send our FormData object; HTTP headers are set automatically
+      XHR2.send(FD2);
+      console.log("send")
+      XHR2.onload = function(){
+          var z = JSON.parse(XHR2.response)
+          console.log(z)
+          myFunction(x,y,z)
     }
     }
   }
+}
 
     function clearData(){
       document.getElementById("angle").value=''
