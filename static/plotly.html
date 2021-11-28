@@ -88,9 +88,26 @@
       XHR.onload = function(){
           var x = JSON.parse(XHR.response)
           console.log(x)
-          myFunction(x)
+          const XHR1 = new XMLHttpRequest(),
+      FD1  = new FormData();
+      var x1 = document.getElementById("bstar").value;
+      var y1 = document.getElementById("hstar").value;
+      console.log("HELLO")
+      // Push our data into our FormData object
+      FD1.append( "x", x1 );
+      FD1.append( "y", y1 );
+      XHR1.open( 'POST', 'http://127.0.0.1:5000/predict/volumeContour' );
+      // Send our FormData object; HTTP headers are set automatically
+      XHR1.send(FD1);
+      console.log("send")
+      XHR1.onload = function(){
+          var y = JSON.parse(XHR1.response)
+          console.log(y)
+          myFunction(x,y)
     }
     }
+    }
+
     function clearData(){
       document.getElementById("angle").value=''
       document.getElementById("hstar").value='';

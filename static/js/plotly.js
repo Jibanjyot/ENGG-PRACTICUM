@@ -111,15 +111,14 @@ var layout = {
 Plotly.newPlot('tester', [trace1,trace2,trace3,trace4,trace5], layout);
 
 
-function myFunction(x) {
+function myFunction(x,y) {
     let hstar = document.getElementById("hstar").value;
     let bstar = document.getElementById("bstar").value;
-
     var trace7 = {
         x: x[0],
         y: x[1],
         mode: 'lines',
-        name: 'contour',
+        name: 'contact angle contour',
         //text: ['tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object'],//
         line: { shape: 'spline',
         
@@ -127,7 +126,23 @@ function myFunction(x) {
             width: 4
            },
         marker: {
-            color: 'rgb(255, 255, 255)'
+            color: 'rgb(16, 77, 222)'
+        },
+        type: 'line'
+    }
+    var trace8 = {
+        x: y[0],
+        y: y[1],
+        mode: 'lines',
+        name: 'volume contour',
+        //text: ['tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object'],//
+        line: { shape: 'spline',
+        
+            dash: 'dashdot',
+            width: 4
+           },
+        marker: {
+            color: 'rgb(6, 145, 10)'
         },
         type: 'line'
     }
@@ -142,6 +157,8 @@ function myFunction(x) {
             size: 15,
           },
     };
-    Plotly.react('tester', [trace1,trace2,trace3,trace4,trace5, trace7,point], layout);
+    console.log(x)
+    console.log(y)
+    Plotly.react('tester', [trace1,trace2,trace3,trace4,trace5, trace7,trace8,point], layout);
 }
 

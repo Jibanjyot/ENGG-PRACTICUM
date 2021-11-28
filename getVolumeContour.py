@@ -9,7 +9,7 @@ def getVolumeContour(x_inp, y_inp):
     df_s = pd.read_csv("VolumeDataN.csv",header=None)
 
     g = pickle.load(open('predictVolume.pkl', 'rb'))
-    volume = round(g(x_inp,y_inp)[0],0)
+    volume = round(g(x_inp,y_inp)[0],3)
 
     y = df_h.to_numpy()
     x = df_b.to_numpy()
