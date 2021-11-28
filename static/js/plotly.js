@@ -146,6 +146,22 @@ function myFunction(x,y) {
         },
         type: 'line'
     }
+    // var trace9 = {
+    //     x: z[0],
+    //     y: z[1],
+    //     mode: 'lines',
+    //     name: 'shape index',
+    //     //text: ['tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object'],//
+    //     line: { shape: 'spline',
+        
+    //         dash: 'dashdot',
+    //         width: 4
+    //        },
+    //     marker: {
+    //         color: 'rgb(500, 500, 500)'
+    //     },
+    //     type: 'line'
+    // }
     var point = {
         x: [bstar],
         y: [hstar],
@@ -159,6 +175,7 @@ function myFunction(x,y) {
     };
     console.log(x)
     console.log(y)
+    // console.log(z)
     Plotly.react('tester', [trace1,trace2,trace3,trace4,trace5, trace7,trace8,point], layout);
 }
 
