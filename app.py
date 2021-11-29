@@ -12,7 +12,7 @@ contactAngle = pickle.load(open('predictContactAngle.pkl', 'rb'))
 regimePrediction = pickle.load(open('regimePredict.pkl', 'rb'))
 # countourPrediction = pickle.load(open('contourPredict.pkl','rb'))
 volumPred= pickle.load(open('predictVolume.pkl','rb'))
-shapeIndex=pickle.load(open('predictShapeIndex.pkl','rb'))
+s_Index=pickle.load(open('predictShapeIndex.pkl','rb'))
 
 from contourPredict import *
 from get_bV_From_Ch import *
@@ -35,15 +35,9 @@ def predictShapeIndex():
     # Set x and y in form value
     x_new = float(request.form.get("x"))
     y_new = float(request.form.get('y'))
-    prediction = shapeIndex(x_new, y_new)
+    prediction = s_Index(x_new, y_new)
     return str(round(prediction[0],3))
 
-@app.route('/predict/volumeContour', methods=['POST'])
-def volumeContourpredict():
-    # Set x and y in form value
-    x_new = float(request.form.get("x"))
-    y_new = float(request.form.get('y'))
-    return jsonify(getVolumeContour(x_new, y_new))
 
 @app.route('/predict/shapeIndexContour', methods=['POST'])
 def shapeIndexContourpredict():
@@ -51,6 +45,13 @@ def shapeIndexContourpredict():
     x_new = float(request.form.get("x"))
     y_new = float(request.form.get('y'))
     return jsonify(shapeIndex(x_new, y_new))
+
+@app.route('/predict/volumeContour', methods=['POST'])
+def volumeContourpredict():
+    # Set x and y in form value
+    x_new = float(request.form.get("x"))
+    y_new = float(request.form.get('y'))
+    return jsonify(getVolumeContour(x_new, y_new))
 
 @app.route('/predict/volume', methods=['POST'])
 def volumePredict():

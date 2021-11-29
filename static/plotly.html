@@ -104,39 +104,45 @@
       XHR.onload = function(){
           var x = JSON.parse(XHR.response)
           console.log(x)
+
           const XHR1 = new XMLHttpRequest(),
-      FD1  = new FormData();
-      var x1 = document.getElementById("bstar").value;
-      var y1 = document.getElementById("hstar").value;
-      console.log("HELLO")
-      // Push our data into our FormData object
-      FD1.append( "x", x1 );
-      FD1.append( "y", y1 );
-      XHR1.open( 'POST', 'http://127.0.0.1:5000/predict/volumeContour' );
-      // Send our FormData object; HTTP headers are set automatically
-      XHR1.send(FD1);
-      console.log("send")
-      XHR1.onload = function(){
-          var y = JSON.parse(XHR1.response)
-          console.log(y)
-          const XHR2 = new XMLHttpRequest(),
-      FD2  = new FormData();
-      var x2 = document.getElementById("bstar").value;
-      var y2 = document.getElementById("hstar").value;
-      console.log("HELLO")
-      // Push our data into our FormData object
-      FD2.append( "x", x1 );
-      FD2.append( "y", y1 );
-      XHR2.open( 'POST', 'http://127.0.0.1:5000/predict/shapeIndexContour' );
-      // Send our FormData object; HTTP headers are set automatically
-      XHR2.send(FD2);
-      console.log("send")
-      XHR2.onload = function(){
-          var z = JSON.parse(XHR2.response)
-          console.log(z)
-          myFunction(x,y,z)
+          FD1  = new FormData();
+          var x1 = document.getElementById("bstar").value;
+          var y1 = document.getElementById("hstar").value;
+          console.log("HELLO")
+          // Push our data into our FormData object
+          FD1.append( "x", x1 );
+          FD1.append( "y", y1 );
+          XHR1.open( 'POST', 'http://127.0.0.1:5000/predict/volumeContour' );
+          // Send our FormData object; HTTP headers are set automatically
+          XHR1.send(FD1);
+          console.log("send")
+          XHR1.onload = function(){
+              var y = JSON.parse(XHR1.response)
+              console.log(y)
+              // myFunction(x,y)
+                  const XHR2 = new XMLHttpRequest(),
+                  FD2  = new FormData();
+                  var x2 = document.getElementById("bstar").value;
+                  var y2 = document.getElementById("hstar").value;
+                  console.log("HELLO")
+                  // Push our data into our FormData object
+                  FD2.append( "x", x2 );
+                  FD2.append( "y", y2 );
+                  XHR2.open( 'POST', 'http://127.0.0.1:5000/predict/shapeIndexContour' );
+                  // Send our FormData object; HTTP headers are set automatically
+                  XHR2.send(FD2);
+                  console.log("send")
+                  XHR2.onload = function(){
+                      var z = JSON.parse(XHR2.response)
+                      console.log(z)
+                      myFunction(x,y,z)
     }
-    }
+          }
+
+
+          
+    
   }
 }
 

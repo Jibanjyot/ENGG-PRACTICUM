@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from scipy import interpolate
 import matplotlib.pyplot as plt
-
+import pickle
 def shapeIndex(x_input,y_input):
     df_h = pd.read_csv("BohDataN.csv",header=None)
     df_b = pd.read_csv("BorDataN.csv",header=None)
@@ -12,9 +12,10 @@ def shapeIndex(x_input,y_input):
     x = df_b.to_numpy()
     z = df_s.to_numpy()
 
-
+    s_Index=pickle.load(open('predictShapeIndex.pkl','rb'))
+    shape_index = s_Index(x_input,y_input)[0]
     fig, ax = plt.subplots(1, 1)  
-    cs = ax.contour(x, y, z, [1])
+    cs = ax.contour(x, y, z, [shape_index])
 
 
     x_coord = []

@@ -150,7 +150,7 @@ function myFunction(x,y,z) {
         x: z[0],
         y: z[1],
         mode: 'lines',
-        name: 'shape index contour',
+        name: 'shape index',
         //text: ['tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object', 'tweak line smoothness<br>with "smoothing" in line object'],//
         line: { shape: 'spline',
         
