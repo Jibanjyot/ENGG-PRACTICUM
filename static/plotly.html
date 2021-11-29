@@ -139,10 +139,6 @@
                       myFunction(x,y,z)
     }
           }
-
-
-          
-    
   }
 }
 
@@ -198,6 +194,7 @@
       let lc=((tension*1.0)/(density*ag))
       lc=Math.sqrt(lc).toFixed(3)
       console.log({contactAngle,h,b,volume,lc})
+      document.getElementById("lc").value=lc
       if(b && h){
           console.log("inside b and h")
           const FD1  = new FormData();
@@ -383,24 +380,7 @@
       }        
   }
     </script>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light ">
-        <a class="navbar-brand" href="#">Menu</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Features</a>
-            </li>
-    
-          </ul>
-        </div>
-      </nav>
+  
       <div class="d-flex justify-content-center"><h1 class="color-palette-heading col-lg-6 ">Digitised Tensiometric chart</h1></div>
      <div>
        <div class="p-3 mb-3" >
@@ -423,21 +403,25 @@
           </div>
         </div>
      </div>
+     <div class="length">
+      <label for="bstar">Critical length (L<sub>c</sub>) :</label>
+        <input id="lc">
+     </div>
      <div class="container-fluid container-background">
         <div>
         <div class="d-flex justify-content-center"><h5 class="color-palette-heading col-lg-6 ">Input any two of below fields.</h5></div>
             <div class="p-3 mb-3" >
                 <div class="input-data">
                   <div class="textbox">
-                    <label for="hstar">Height (h):</label>
+                    <label for="hstar">Height (h in mm):</label>
                     <input type="text" id="hstar" name="fname"><br><br>
                   </div>
                   <div class="textbox">
-                    <label for="bstar">Base Radius (b):</label>
+                    <label for="bstar">Base Radius (b in mm):</label>
                     <input type="text" id="bstar" name="fname"><br><br>
                   </div>
                   <div class="textbox">
-                    <label for="bstar">Volume (V):</label>
+                    <label for="bstar">Volume (V in <span>&#181;</span> L ):</label>
                     <input type="text" id="volume" name="fname"><br><br>
                   </div>
                   <div class="textbox">
