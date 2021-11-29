@@ -155,11 +155,11 @@
       let total_input = 0; 
       const contactAngle=document.getElementById("angle").value
       
-      const h = document.getElementById("hstar").value;
+      var h = document.getElementById("hactual").value;
       
-      const b = document.getElementById("bstar").value;
+      var b = document.getElementById("bactual").value;
       
-      const volume=document.getElementById("volume").value
+      var volume=document.getElementById("volumeactual").value
       
       
       const tension=document.getElementById("tension").value
@@ -197,6 +197,10 @@
       document.getElementById("lc").value=lc
       if(b && h){
           console.log("inside b and h")
+          b = b/lc;
+          h = h/lc;
+          document.getElementById("hstar").value = h.toFixed(3);
+          document.getElementById("bstar").value = b.toFixed(3);
           const FD1  = new FormData();
           const XHR1=new XMLHttpRequest()
           const XHR2=new XMLHttpRequest()
@@ -221,6 +225,9 @@
           XHR2.onload = function(){
               var x = JSON.parse(XHR2.response)
               document.getElementById("volume").value=x
+              var vol = x*Math.pow(lc,3)
+              document.getElementById("volumeactual").value = vol.toFixed(3);
+              // document.getElementById("volumeactual").value=x.toFixed(2);
               predictRegime()
               predictContactAngle()
               predictShapeIndex()
@@ -246,13 +253,22 @@
           const XHR3=new XMLHttpRequest()
           FD1.append( "x_input", contactAngle );
           FD1.append( "y_input", h );
+
+          // document.getElementById("hstar").value = parseFloat(h).toFixed(3);
           XHR1.open( 'POST', 'http://127.0.0.1:5000/predict/bv');
           // Send our FormData object; HTTP headers are set automatically
           XHR1.send(FD1);
           XHR1.onload = function(){
               var x = JSON.parse(XHR1.response)
               document.getElementById("volume").value=x[1]
+              var vol = x[1]*Math.pow(lc,3)
+              document.getElementById("volumeactual").value = vol.toFixed(3);
               document.getElementById("bstar").value=x[0]
+              document.getElementById("bactual").value = (x[0]*lc).toFixed(3);
+
+              height = document.getElementById("hactual").value;
+              height = height/lc
+              document.getElementById('hstar').value = height
 
               const h = document.getElementById("hstar").value;
               const b = document.getElementById("bstar").value;
@@ -286,7 +302,18 @@
           XHR1.onload = function(){
               var x = JSON.parse(XHR1.response)
               document.getElementById("angle").value=x[1]
+              
               document.getElementById("bstar").value=x[0]
+              document.getElementById("bactual").value=(x[0]*lc).toFixed(3);
+
+              height = document.getElementById("hactual").value;
+              height = height/lc
+              document.getElementById('hstar').value = height
+
+              volume_1 = document.getElementById("volumeactual").value;
+              volume_1 = volume_1/Math.pow(lc,3);
+              document.getElementById('volume').value = volume_1;
+
               const h = document.getElementById("hstar").value;
               const b = document.getElementById("bstar").value;
               const tempFD  = new FormData();
@@ -322,6 +349,18 @@
               var x = JSON.parse(XHR1.response)
               document.getElementById("angle").value=x[1]
               document.getElementById("hstar").value=x[0]
+              document.getElementById("hactual").value=(x[0]*lc).toFixed(3);
+
+              base_rad = document.getElementById("bactual").value;
+              base_rad = base_rad/lc
+              document.getElementById('bstar').value = base_rad.toFixed(3)
+
+              volume_1 = document.getElementById("volumeactual").value;
+              volume_1 = volume_1/Math.pow(lc,3);
+              document.getElementById('volume').value = volume_1;
+
+
+
               const h = document.getElementById("hstar").value;
               const b = document.getElementById("bstar").value;
               const tempFD  = new FormData();
@@ -355,7 +394,20 @@
           XHR1.onload = function(){
               var x = JSON.parse(XHR1.response)
               document.getElementById("volume").value=x[1]
-              document.getElementById("hstar").value=x[0]
+              v_ac = x[1]*Math.pow(lc,3)
+              document.getElementById("volumeactual").value = v_ac.toFixed(3)
+
+              document.getElementById("hstar").value=x[0].toFixed(3)
+              h_ac = x[0]*lc
+              document.getElementById("hactual").value = h_ac.toFixed(3)
+
+
+              base_rad = document.getElementById("bactual").value;
+              base_rad = base_rad/lc
+              document.getElementById('bstar').value = base_rad.toFixed(3)
+              
+
+
               const h = document.getElementById("hstar").value;
               const b = document.getElementById("bstar").value;
               const tempFD  = new FormData();
@@ -414,15 +466,15 @@
                 <div class="input-data">
                   <div class="textbox">
                     <label for="hstar">Height (h in mm):</label>
-                    <input type="text" id="hstar" name="fname"><br><br>
+                    <input type="text" id="hactual" name="fname"><br><br>
                   </div>
                   <div class="textbox">
                     <label for="bstar">Base Radius (b in mm):</label>
-                    <input type="text" id="bstar" name="fname"><br><br>
+                    <input type="text" id="bactual" name="fname"><br><br>
                   </div>
                   <div class="textbox">
                     <label for="bstar">Volume (V in <span>&#181;</span> L ):</label>
-                    <input type="text" id="volume" name="fname"><br><br>
+                    <input type="text" id="volumeactual" name="fname"><br><br>
                   </div>
                   <div class="textbox">
                     <label for="bstar">Contact Angle:</label>
@@ -431,7 +483,24 @@
                   <div class="textbox">
                     <label for="bstar">Shape Index:</label>
                     <input type="text" id="index" name="fname"><br><br>
-                  </div>                                    
+                  </div> 
+                                                     
+                </div>
+                <div class="input-data">
+                  <div class="textbox">
+                    <label for="hstar">h* (non d):</label>
+                    <input type="text" id="hstar" name="fname"><br><br>
+                  </div>
+                  <div class="textbox">
+                    <label for="bstar">b* (b in mm):</label>
+                    <input type="text" id="bstar" name="fname"><br><br>
+                  </div>
+                  <div class="textbox">
+                    <label for="bstar">Volume (V in <span>&#181;</span> L ):</label>
+                    <input type="text" id="volume" name="fname"><br><br>
+                  </div>
+                  
+                                                     
                 </div>
                 <div class="buttons">
                   <div class="text-center" style="padding:40px"><button type="button" class="btn btn-primary"
