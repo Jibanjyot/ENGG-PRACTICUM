@@ -146,10 +146,15 @@
       document.getElementById("angle").value=''
       document.getElementById("hstar").value='';
       document.getElementById("bstar").value='';
-      document.getElementById("volume").value=''
-      document.getElementById("tension").value=''
-      document.getElementById("ag").value=''
-      document.getElementById("density").value=''      
+      document.getElementById("volume").value='';
+      document.getElementById("volumeactual").value='';
+      document.getElementById("hactual").value='';
+      document.getElementById("bactual").value='';
+      document.getElementById("index").value='';
+
+      // document.getElementById("tension").value=''
+      // document.getElementById("ag").value=''
+      // document.getElementById("density").value=''      
     }
     function mFunction(){
       let total_input = 0; 
@@ -441,14 +446,14 @@
            
             <div class="textbox">
               <label for="hstar">Surface tension, &#963; (N/m) :</label>
-              <input type="text" id="tension" name="fname" value="1" required><br><br>
+              <input type="text" id="tension" name="fname" value="9800" required><br><br>
             </div>
             <div class="textbox">
-              <label for="bstar">Gravititational acceleration, g (m/s<sup>2</sup>):</label>
-              <input type="text" id="ag" name="fname" value="9.8" required><br><br>
+              <label for="bstar">Gravititational acceleration, g (mm/s<sup>2</sup>):</label>
+              <input type="text" id="ag" name="fname" value="9800" required><br><br>
             </div>
               <div class="textbox">
-              <label for="bstar">Density difference, &Delta;&rho; (Kg/m<sup>3</sup>) :</label>
+              <label for="bstar">Density difference, &Delta;&rho; (Kg/mm<sup>3</sup>) :</label>
               <input type="text" id="density" name="fname" value="1" required><br><br>
             </div>
                            
@@ -456,7 +461,7 @@
         </div>
      </div>
      <div class="length">
-      <label for="bstar">Critical length (L<sub>c</sub>) :</label>
+      <label for="bstar">Capillary length (L<sub>c</sub>) :</label>
         <input id="lc">
      </div>
      <div class="container-fluid container-background">
@@ -488,15 +493,15 @@
                 </div>
                 <div class="input-data">
                   <div class="textbox">
-                    <label for="hstar">h* (non d):</label>
+                    <label for="hstar">h*:</label>
                     <input type="text" id="hstar" name="fname"><br><br>
                   </div>
                   <div class="textbox">
-                    <label for="bstar">b* (b in mm):</label>
+                    <label for="bstar">b*:</label>
                     <input type="text" id="bstar" name="fname"><br><br>
                   </div>
                   <div class="textbox">
-                    <label for="bstar">Volume (V in <span>&#181;</span> L ):</label>
+                    <label for="bstar">V* :</label>
                     <input type="text" id="volume" name="fname"><br><br>
                   </div>
                   
