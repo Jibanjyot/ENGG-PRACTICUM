@@ -36,7 +36,7 @@ def predictShapeIndex():
     x_new = float(request.form.get("x"))
     y_new = float(request.form.get('y'))
     prediction = s_Index(x_new, y_new)
-    return str(round(prediction[0],3))
+    return str(round(prediction[0][0],3))
 
 
 @app.route('/predict/shapeIndexContour', methods=['POST'])
