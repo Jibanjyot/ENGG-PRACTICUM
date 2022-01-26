@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
     <link rel="stylesheet" href="plotly.css">
+    <script data-main="scripts/main" src="scripts/require.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
@@ -436,14 +437,28 @@
           }         
       }        
   }
+      var loadFile = function(event) {
+        // var image = document.getElementById('output');
+        console.log(event.target.files[0])
+        var fs = require("fs");
+        
+        var file = event.target.files[0]
+        fs.writeFile('js/image.png',file,(err)=>{
+          if (err) throw err;
+        } )
+        // image.src = URL.createObjectURL(event.target.files[0]);
+      };
     </script>
   
       <div class="d-flex justify-content-center"><h1 class="color-palette-heading col-lg-6 ">Digitised Tensiometric chart</h1></div>
      <div>
-       <div class="p-3 mb-3" >
+      <div class="length">
+        <label for="image"> <h3>Upload Image of Droplet    :</h3></label>
+        <input type="file"  accept="image/*" name="image" id="file" style="padding-left: 1%; padding-top: 0.2%;"  onchange="loadFile(event)" >
+      </div>
+      <div class="p-3 mb-3" >
         <div class="d-flex justify-content-center"><h5 class="color-palette-heading col-lg-6 ">Below three fields are required.</h5></div> 
           <div class="input-data">
-           
             <div class="textbox">
               <label for="hstar">Surface tension, &#963; (N/m) :</label>
               <input type="text" id="tension" name="fname" value="9800" required><br><br>
@@ -459,7 +474,7 @@
                            
           </div>
         </div>
-     </div>
+      </div>
      <div class="length">
       <label for="bstar">Capillary length (L<sub>c</sub>) :</label>
         <input id="lc">

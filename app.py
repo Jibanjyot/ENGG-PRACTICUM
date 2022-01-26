@@ -3,17 +3,6 @@ from flask_cors import CORS
 import pickle
 import logging
 
-logging.basicConfig(level=logging.DEBUG)
-
-app = Flask(__name__)
-app = Flask(__name__, static_url_path='')
-CORS(app)
-contactAngle = pickle.load(open('predictContactAngle.pkl', 'rb'))
-regimePrediction = pickle.load(open('regimePredict.pkl', 'rb'))
-# countourPrediction = pickle.load(open('contourPredict.pkl','rb'))
-volumPred= pickle.load(open('predictVolume.pkl','rb'))
-s_Index=pickle.load(open('predictShapeIndex.pkl','rb'))
-
 from contourPredict import *
 from get_bV_From_Ch import *
 from get_Cb_From_Vh import *
@@ -22,13 +11,26 @@ from get_hV_From_Cb import *
 from getVolumeContour import *
 from shapeIndexContour import *
 
+logging.basicConfig(level=logging.DEBUG)
+
+app = Flask(__name__)
+app = Flask(__name__, static_url_path='')
+CORS(app)
+contactAngle = pickle.load(open('predictContactAngle.pkl', 'rb'))
+regimePrediction = pickle.load(open('regimePredict.pkl', 'rb'))
+# countourPrediction = pickle.load(open('contourPredict.pkl','rb'))
+volumPred = pickle.load(open('predictVolume.pkl', 'rb'))
+s_Index = pickle.load(open('predictShapeIndex.pkl', 'rb'))
+
+
 @app.route('/predict/contactAngle', methods=['POST'])
 def predict():
     # Set x and y in form value
     x_new = float(request.form.get("x"))
     y_new = float(request.form.get('y'))
     prediction = contactAngle(x_new, y_new)
-    return str(round(prediction[0],0))
+    return str(round(prediction[0], 0))
+
 
 @app.route('/predict/shapeIndex', methods=['POST'])
 def predictShapeIndex():
@@ -36,7 +38,7 @@ def predictShapeIndex():
     x_new = float(request.form.get("x"))
     y_new = float(request.form.get('y'))
     prediction = s_Index(x_new, y_new)
-    return str(round(prediction[0],3))
+    return str(round(prediction[0], 3))
 
 
 @app.route('/predict/shapeIndexContour', methods=['POST'])
@@ -46,6 +48,7 @@ def shapeIndexContourpredict():
     y_new = float(request.form.get('y'))
     return jsonify(shapeIndex(x_new, y_new))
 
+
 @app.route('/predict/volumeContour', methods=['POST'])
 def volumeContourpredict():
     # Set x and y in form value
@@ -53,13 +56,14 @@ def volumeContourpredict():
     y_new = float(request.form.get('y'))
     return jsonify(getVolumeContour(x_new, y_new))
 
+
 @app.route('/predict/volume', methods=['POST'])
 def volumePredict():
     # Set x and y in form value
     x_new = float(request.form.get("x"))
     y_new = float(request.form.get("y"))
     prediction = volumPred(x_new, y_new)
-    return str(round(prediction[0],2))
+    return str(round(prediction[0], 2))
 
 
 @app.route('/predict/regime', methods=['POST'])
@@ -72,42 +76,48 @@ def regimePredict():
     print(prediction[0])
     return str(prediction[0])
 
-@app.route('/predict/contour',methods=['POST'])
+
+@app.route('/predict/contour', methods=['POST'])
 def contourPredict():
     x_input = float(request.form.get("x_input"))
     y_input = float(request.form.get("y_input"))
-    inp= [x_input,y_input]
-    return jsonify(fun(x_input,y_input))
+    inp = [x_input, y_input]
+    return jsonify(fun(x_input, y_input))
 
-@app.route('/predict/bv',methods=['POST'])
+
+@app.route('/predict/bv', methods=['POST'])
 def predict_bv():
     print(request.form.get("x_input"))
-    x_input = float(request.form.get("x_input"))   #contact angle
-    y_input = float(request.form.get("y_input"))   #h
-    inp= [x_input,y_input]
-    return jsonify(fun_bv(x_input,y_input))
+    x_input = float(request.form.get("x_input"))  # contact angle
+    y_input = float(request.form.get("y_input"))  # h
+    inp = [x_input, y_input]
+    return jsonify(fun_bv(x_input, y_input))
 
-@app.route('/predict/cb',methods=['POST'])
+
+@app.route('/predict/cb', methods=['POST'])
 def predict_cb():
     print(request.form.get("x_input"))
-    x_input = float(request.form.get("x_input"))    #h
-    y_input = float(request.form.get("y_input"))    #v
-    inp= [x_input,y_input]
-    return jsonify(fun_cb(x_input,y_input))
+    x_input = float(request.form.get("x_input"))  # h
+    y_input = float(request.form.get("y_input"))  # v
+    inp = [x_input, y_input]
+    return jsonify(fun_cb(x_input, y_input))
 
-@app.route('/predict/ch',methods=['POST'])
+
+@app.route('/predict/ch', methods=['POST'])
 def predict_ch():
-    x_input = float(request.form.get("x_input"))    #b
-    y_input = float(request.form.get("y_input"))    #v
-    inp= [x_input,y_input]
-    return jsonify(fun_ch(x_input,y_input))
+    x_input = float(request.form.get("x_input"))  # b
+    y_input = float(request.form.get("y_input"))  # v
+    inp = [x_input, y_input]
+    return jsonify(fun_ch(x_input, y_input))
 
-@app.route('/predict/hv',methods=['POST'])
+
+@app.route('/predict/hv', methods=['POST'])
 def predict_hv():
-    x_input = float(request.form.get("x_input"))    #b
-    y_input = float(request.form.get("y_input"))    #c
-    inp= [x_input,y_input]
-    return jsonify(fun_hv(x_input,y_input))
+    x_input = float(request.form.get("x_input"))  # b
+    y_input = float(request.form.get("y_input"))  # c
+    inp = [x_input, y_input]
+    return jsonify(fun_hv(x_input, y_input))
+
 
 @app.route('/test', methods=['GET'])
 def test():
