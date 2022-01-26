@@ -30,7 +30,8 @@ x = np.array(x1)
 y = np.array(x2)
 xg, yg = np.meshgrid(x, y,indexing='ij', sparse=True)
 z = np.array(y1)
-shapeIndex = interpolate.interp2d(x, y, z, kind='quintic')
+shapeIndex = interpolate.SmoothBivariateSpline(x, y, z,kx=4, ky=5, s=None, eps=1e-16)
+# shapeIndex = interpolate.interp2d(x, y, z, kind='quintic')
 x_new= 1.5758
 y_new = 1.7453
 

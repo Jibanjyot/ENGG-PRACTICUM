@@ -13,7 +13,7 @@ def shapeIndex(x_input,y_input):
     z = df_s.to_numpy()
 
     s_Index=pickle.load(open('predictShapeIndex.pkl','rb'))
-    shape_index = s_Index(x_input,y_input)[0]
+    shape_index = s_Index(x_input,y_input)[0][0]
     fig, ax = plt.subplots(1, 1)  
     cs = ax.contour(x, y, z, [shape_index])
 
