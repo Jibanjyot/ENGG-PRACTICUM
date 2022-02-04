@@ -2,6 +2,8 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 import pickle
 import logging
+import os
+from werkzeug.utils import secure_filename
 
 from contourPredict import *
 from get_bV_From_Ch import *
@@ -10,6 +12,7 @@ from get_Ch_From_Vb import *
 from get_hV_From_Cb import *
 from getVolumeContour import *
 from shapeIndexContour import *
+from getDropPropertiesFromImage import GetParametersFromImage
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -21,6 +24,58 @@ regimePrediction = pickle.load(open('regimePredict.pkl', 'rb'))
 # countourPrediction = pickle.load(open('contourPredict.pkl','rb'))
 volumPred = pickle.load(open('predictVolume.pkl', 'rb'))
 s_Index = pickle.load(open('predictShapeIndex.pkl', 'rb'))
+
+
+UPLOAD_FOLDER = 'static/uploads'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+@app.route('/process/image', methods=["POST"])
+def GetImageDimensions():
+    if 'files' not in request.files:
+        resp = jsonify({'message': 'No file part in the request'})
+        resp.status_code = 400
+        return resp
+
+    files = request.files.getlist('files')
+
+    errors = {}
+    success = False
+
+    for file in files:
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            success = True
+        else:
+            errors[file.filename] = 'File type is not allowed'
+
+    res = GetParametersFromImage()
+    print(res)
+    final = {'cotact_angle_1': res['contactAngle'][0], 'cotact_angle_2': res['contactAngle'][1], 'radius': res['radius'],
+             'height': res['height'], 'volume': res['volume']}
+    print(final)
+
+    if success and errors:
+        errors['message'] = 'File(s) successfully uploaded'
+        resp = jsonify(errors)
+        resp.status_code = 500
+        return resp
+    if success:
+        resp = jsonify(final)
+        resp.status_code = 201
+        return resp
+    else:
+        resp = jsonify(errors)
+        resp.status_code = 500
+        return resp
 
 
 @app.route('/predict/contactAngle', methods=['POST'])
