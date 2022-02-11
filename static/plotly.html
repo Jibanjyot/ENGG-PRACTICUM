@@ -438,15 +438,26 @@
       }        
   }
       var loadFile = function(event) {
-        // var image = document.getElementById('output');
-        console.log(event.target.files[0])
-        var fs = require("fs");
-        
-        var file = event.target.files[0]
-        fs.writeFile('js/image.png',file,(err)=>{
-          if (err) throw err;
-        } )
-        // image.src = URL.createObjectURL(event.target.files[0]);
+        console.log('hello')
+        var output = document.getElementById('output');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.onload = function() {
+          URL.revokeObjectURL(output.src) // free memory
+        }
+        const XHR5=new XMLHttpRequest()
+        FD  = new FormData();
+        FD.append("files",event.target.files[0])
+        XHR5.open( 'POST', 'http://127.0.0.1:5000/process/image');
+        // Send our FormData object; HTTP headers are set automatically
+        XHR5.send(FD);  
+        XHR5.onload = function(){
+            const data=JSON.parse(XHR5.response);
+            document.getElementById("angle").value=data.cotact_angle_2.toFixed(3)
+            document.getElementById("bactual").value=data.radius.toFixed(3)
+            document.getElementById("hactual").value=data.height.toFixed(3)
+            document.getElementById("volumeactual").value=data.volume.toFixed(3)
+            console.log(data)
+        }
       };
     </script>
   
@@ -455,6 +466,7 @@
       <div class="length">
         <label for="image"> <h3>Upload Image of Droplet    :</h3></label>
         <input type="file"  accept="image/*" name="image" id="file" style="padding-left: 1%; padding-top: 0.2%;"  onchange="loadFile(event)" >
+        <img id="output" alt="Image preview.."/>
       </div>
       <div class="p-3 mb-3" >
         <div class="d-flex justify-content-center"><h5 class="color-palette-heading col-lg-6 ">Below three fields are required.</h5></div> 

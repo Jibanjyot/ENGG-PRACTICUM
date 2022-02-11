@@ -13,7 +13,6 @@ def GetParametersFromImage():
     # plt.figure()
     # im.display()
     # plt.show()
-
     im.set_baseline(pt1=[2, 1], pt2=[4.5, 1])
     edge = im.edge_detection()
     edge_cont = im.edge_detection_contour(level=.25)
