@@ -40,7 +40,7 @@ def GetParametersFromImage():
     print("\n=== Drop Volume: ===")
     print(volume)
 
-    result = {"contactAngle": sfit.thetas, "radius": radius,
+    result = {"contactAngle": c_angles, "radius": radius,
               "height": height, "volume": volume}
 
     return result
