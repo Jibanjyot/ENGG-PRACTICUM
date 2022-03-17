@@ -37,7 +37,7 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-@app.route('/process/image', methods=["POST"])
+@app.route('/upload/image', methods=["POST"])
 def GetImageDimensions():
     if 'files' not in request.files:
         resp = jsonify({'message': 'No file part in the request'})
@@ -57,25 +57,40 @@ def GetImageDimensions():
         else:
             errors[file.filename] = 'File type is not allowed'
 
-    res = GetParametersFromImage()
-    print(res)
-    final = {'cotact_angle_1': res['contactAngle'][0], 'cotact_angle_2': res['contactAngle'][1], 'radius': res['radius'],
-             'height': res['height'], 'volume': res['volume']}
-    print(final)
+    # res = GetParametersFromImage()
+    # print(res)
+    # final = {'cotact_angle_1': res['contactAngle'][0], 'cotact_angle_2': res['contactAngle'][1], 'radius': res['radius'],
+    #          'height': res['height'], 'volume': res['volume']}
+    # print(final)
 
-    if success and errors:
-        errors['message'] = 'File(s) successfully uploaded'
-        resp = jsonify(errors)
-        resp.status_code = 500
-        return resp
+    # if success and errors:
+    #     errors['message'] = 'File(s) successfully uploaded'
+    #     resp = jsonify(errors)
+    #     resp.status_code = 500
+    #     return resp
+    # if success:
+    #     resp = jsonify(final)
+    #     resp.status_code = 201
+    #     return resp
+    # else:
+    #     resp = jsonify(errors)
+    #     resp.status_code = 500
+    #     return resp
+
     if success:
-        resp = jsonify(final)
+        resp = jsonify({"message": "Uploaded File!"})
         resp.status_code = 201
         return resp
-    else:
-        resp = jsonify(errors)
-        resp.status_code = 500
-        return resp
+
+    resp = jsonify({"message": "Something went wrong"})
+    resp.status_code = 400
+    return resp
+
+
+@app.route('process/image', methods=["POST"])
+def processImageDimensions():
+    x = request.form.get("res_x")
+    y = request.form.get("res_y")
 
 
 @app.route('/predict/contactAngle', methods=['POST'])
