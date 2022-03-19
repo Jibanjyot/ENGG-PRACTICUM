@@ -87,10 +87,23 @@ def GetImageDimensions():
     return resp
 
 
-@app.route('process/image', methods=["POST"])
+@app.route('/process/image', methods=["POST"])
 def processImageDimensions():
-    x = request.form.get("res_x")
-    y = request.form.get("res_y")
+    # x = request.form.get("res_x")
+    # y = request.form.get("res_y")
+
+    res = GetParametersFromImage()
+    print(res)
+    final = {'cotact_angle_1': res['contactAngle'][0], 'cotact_angle_2': res['contactAngle'][1], 'radius': res['radius'],
+             'height': res['height'], 'volume': res['volume']}
+    print(final)
+
+    errors = {}
+    success = False
+
+    resp = jsonify(final)
+    resp.status_code = 200
+    return resp
 
 
 @app.route('/predict/contactAngle', methods=['POST'])
