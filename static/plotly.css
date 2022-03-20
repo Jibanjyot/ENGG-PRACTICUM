@@ -66,6 +66,21 @@
     justify-content: center;
     align-items: center;
 }
+
+#pointer_div {
+    background-size: contain;
+    background-repeat: no-repeat;
+	width: 500px;
+	height: 500px;
+}
+#cross {
+	position: relative;
+	visibility: hidden;
+	z-index: 2;
+	color: white;
+	font-size: 14px;
+}
+
 .length{
     display: flex;
     flex-direction: column;

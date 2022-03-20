@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
     <link rel="stylesheet" href="plotly.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script data-main="scripts/main" src="scripts/require.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -24,6 +25,15 @@
 
 <body>
     <script>
+      function point_it(event){
+        pos_x = event.offsetX?(event.offsetX):event.pageX-document.getElementById("pointer_div").offsetLeft;
+        pos_y = event.offsetY?(event.offsetY):event.pageY-document.getElementById("pointer_div").offsetBottom;
+        document.getElementById("cross").style.left = (pos_x - 6).toString() + "px";
+        document.getElementById("cross").style.top = (pos_y - 10).toString() + "px";
+        document.getElementById("cross").style.visibility = "visible" ;
+        document.pointform.form_x.value = pos_x;
+        document.pointform.form_y.value = pos_y;
+      }  
     function predictRegime(){
       const XHR = new XMLHttpRequest(),
       FD  = new FormData();
@@ -364,9 +374,6 @@
               volume_1 = document.getElementById("volumeactual").value;
               volume_1 = volume_1/Math.pow(lc,3);
               document.getElementById('volume').value = volume_1;
-
-
-
               const h = document.getElementById("hstar").value;
               const b = document.getElementById("bstar").value;
               const tempFD  = new FormData();
@@ -411,9 +418,6 @@
               base_rad = document.getElementById("bactual").value;
               base_rad = base_rad/lc
               document.getElementById('bstar').value = base_rad.toFixed(3)
-              
-
-
               const h = document.getElementById("hstar").value;
               const b = document.getElementById("bstar").value;
               const tempFD  = new FormData();
@@ -439,14 +443,52 @@
   }
       var loadFile = function(event) {
         console.log('hello')
-        var output = document.getElementById('output');
-        output.src = URL.createObjectURL(event.target.files[0]);
-        output.onload = function() {
-          URL.revokeObjectURL(output.src) // free memory
-        }
+        var frame = document.getElementById('pointer_div');
+        var bgUrl=URL.createObjectURL(event.target.files[0])
+        frame.style.backgroundImage = `url(${bgUrl})`;
         const XHR5=new XMLHttpRequest()
         FD  = new FormData();
         FD.append("files",event.target.files[0])
+        XHR5.open( 'POST', 'http://127.0.0.1:5000/process/image');
+        // Send our FormData object; HTTP headers are set automatically
+        XHR5.send(FD);  
+        XHR5.onload = function(){
+            const data=JSON.parse(XHR5.response);
+            document.getElementById("angle").value=data.cotact_angle_2.toFixed(3)
+            document.getElementById("bactual").value=data.radius.toFixed(3)
+            document.getElementById("hactual").value=data.height.toFixed(3)
+            document.getElementById("volumeactual").value=data.volume.toFixed(3)
+            console.log(data)
+        }
+      };
+      let pt=0;
+      var saveScale=function(event){
+        event.preventDefault()
+        console.log("Saved")
+        let pos_x = document.pointform.form_x.value ;
+        let pos_y = document.pointform.form_y.value ;
+        console.log({pos_x,pos_y})
+        if(pt==0){
+          document.getElementById("p1x").value=pos_x
+          document.getElementById("p1y").value=pos_y
+        }
+        else{
+          document.getElementById("p2x").value=pos_x
+          document.getElementById("p2y").value=pos_y
+        }
+        pt=(pt+1)%2;
+      }
+      var processFile = function(event) {
+        var p1x=document.getElementById("p2x").value
+        var p1y=document.getElementById("p2y").value
+        var p2x=document.getElementById("p2x").value
+        var p2y=document.getElementById("p2y").value
+        const XHR5=new XMLHttpRequest()
+        FD  = new FormData();
+        FD.append("p1x",p1x)
+        FD.append("p1y",p1y)
+        FD.append("p2x",p2x)
+        FD.append("p2y",p2y)
         XHR5.open( 'POST', 'http://127.0.0.1:5000/process/image');
         // Send our FormData object; HTTP headers are set automatically
         XHR5.send(FD);  
@@ -466,8 +508,26 @@
       <div class="length">
         <label for="image"> <h3>Upload Image of Droplet    :</h3></label>
         <input type="file"  accept="image/*" name="image" id="file" style="padding-left: 1%; padding-top: 0.2%;"  onchange="loadFile(event)" >
-        <img id="output" alt="Image preview.."/>
       </div>
+      <div style="display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
+        <form name="pointform" method="post">
+          <div id="pointer_div" onclick="point_it(event)"><i id="cross" class="fa fa-times"></i></div>
+          You pointed on x = <input type="text" name="form_x" size="4" />  y = <input type="text" name="form_y" size="4" />
+          <button style="margin:20px" onclick="saveScale(event)">Save</button>
+        </form>
+        <span>Point 1</span>
+        <label for="hstar">X :</label>
+        <input id="p1x"/>
+        <label for="hstar">Y :</label>
+        <input id="p1y" />
+        <span>Point 2</span>
+        <label for="hstar">X :</label>
+        <input id="p2x" />
+        <label for="hstar">Y :</label>
+        <input id="p2y" />
+        <button style="margin:20px" onclick="processFile(event)">Submit</button>
+      </div>
+      
       <div class="p-3 mb-3" >
         <div class="d-flex justify-content-center"><h5 class="color-palette-heading col-lg-6 ">Below three fields are required.</h5></div> 
           <div class="input-data">
@@ -548,9 +608,6 @@
           <div class="plotly-card p-3 mb-3" class="graph">
               <div id="tester"></div>
           </div>
-          
-          
-        
         </div>
     </div>
 </body>
