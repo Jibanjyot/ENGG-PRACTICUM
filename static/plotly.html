@@ -449,15 +449,11 @@
         const XHR5=new XMLHttpRequest()
         FD  = new FormData();
         FD.append("files",event.target.files[0])
-        XHR5.open( 'POST', 'http://127.0.0.1:5000/process/image');
+        XHR5.open( 'POST', 'http://127.0.0.1:5000/upload/image');
         // Send our FormData object; HTTP headers are set automatically
         XHR5.send(FD);  
         XHR5.onload = function(){
             const data=JSON.parse(XHR5.response);
-            document.getElementById("angle").value=data.cotact_angle_2.toFixed(3)
-            document.getElementById("bactual").value=data.radius.toFixed(3)
-            document.getElementById("hactual").value=data.height.toFixed(3)
-            document.getElementById("volumeactual").value=data.volume.toFixed(3)
             console.log(data)
         }
       };
@@ -479,16 +475,18 @@
         pt=(pt+1)%2;
       }
       var processFile = function(event) {
-        var p1x=document.getElementById("p2x").value
-        var p1y=document.getElementById("p2y").value
+        var p1x=document.getElementById("p1x").value
+        var p1y=document.getElementById("p1y").value
         var p2x=document.getElementById("p2x").value
         var p2y=document.getElementById("p2y").value
+        var actualdistance = document.getElementById("actualdistance").value
         const XHR5=new XMLHttpRequest()
         FD  = new FormData();
         FD.append("p1x",p1x)
         FD.append("p1y",p1y)
         FD.append("p2x",p2x)
         FD.append("p2y",p2y)
+        FD.append("actualdistance",actualdistance)
         XHR5.open( 'POST', 'http://127.0.0.1:5000/process/image');
         // Send our FormData object; HTTP headers are set automatically
         XHR5.send(FD);  
@@ -525,6 +523,8 @@
         <input id="p2x" />
         <label for="hstar">Y :</label>
         <input id="p2y" />
+        <label for="hstar">Distance (mm) :</label>
+        <input id="actualdistance" />
         <button style="margin:20px" onclick="processFile(event)">Submit</button>
       </div>
       

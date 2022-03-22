@@ -1,10 +1,12 @@
+import re
+from cv2 import sqrt
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import pickle
 import logging
 import os
 from werkzeug.utils import secure_filename
-
+import math
 from contourPredict import *
 from get_bV_From_Ch import *
 from get_Cb_From_Vh import *
@@ -89,10 +91,18 @@ def GetImageDimensions():
 
 @app.route('/process/image', methods=["POST"])
 def processImageDimensions():
-    # x = request.form.get("res_x")
-    # y = request.form.get("res_y")
-
-    res = GetParametersFromImage()
+    x1 = int(request.form.get("p1x"))
+    x2 = int(request.form.get("p2x"))
+    y1 = int(request.form.get("p1y"))
+    y2 = int(request.form.get("p2y"))
+    
+    actualdistance = int(request.form.get("actualdistance"))
+    
+    distance = math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2))
+    print(x1,x2,y1,y2,distance,actualdistance)
+    resolution = distance/actualdistance
+    print(resolution)
+    res = GetParametersFromImage(resolution)
     print(res)
     final = {'cotact_angle_1': res['contactAngle'][0], 'cotact_angle_2': res['contactAngle'][1], 'radius': res['radius'],
              'height': res['height'], 'volume': res['volume']}
