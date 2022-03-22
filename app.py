@@ -96,7 +96,7 @@ def processImageDimensions():
     y1 = int(request.form.get("p1y"))
     y2 = int(request.form.get("p2y"))
     
-    actualdistance = int(request.form.get("actualdistance"))
+    actualdistance = float(request.form.get("actualdistance"))
     
     distance = math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2))
     print(x1,x2,y1,y2,distance,actualdistance)
