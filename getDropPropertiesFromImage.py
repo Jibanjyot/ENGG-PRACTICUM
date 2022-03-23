@@ -17,10 +17,10 @@ def GetParametersFromImage(resolution):
     # plt.figure()
     # im.display()
     # plt.show()
-    im.set_baseline(pt1=[2, 0.02], pt2=[4.5, 0.02])
+    im.set_baseline(pt1=[2, 2.4/resolution], pt2=[4.5, 2.4/resolution])
     edge = im.edge_detection()
     edge_cont = im.edge_detection()
-    # edge_cont = im.edge_detection_contour(level=.25)
+    edge_cont = im.edge_detection_contour(level=.25)
     sfit = edge.fit_spline()
 
     sfit.compute_contact_angle()
@@ -28,10 +28,10 @@ def GetParametersFromImage(resolution):
     c_angles = [sfit.thetas[0], 180-sfit.thetas[1]]
     radius = sfit.get_base_diameter()
 
-    # plt.figure()
-    # im.display()
-    # sfit.display()
-    # plt.show()
+    plt.figure()
+    im.display()
+    sfit.display()
+    plt.show()
 
     print("\n=== Drop base diameter: ===")
     print(radius)
@@ -70,4 +70,4 @@ def GetParametersFromImage(resolution):
 
     return result
 
-
+# GetParametersFromImage(120)
