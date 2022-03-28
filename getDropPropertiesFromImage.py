@@ -28,10 +28,10 @@ def GetParametersFromImage(resolution):
     c_angles = [sfit.thetas[0], 180-sfit.thetas[1]]
     radius = sfit.get_base_diameter()
 
-    plt.figure()
-    im.display()
-    sfit.display()
-    plt.show()
+    # plt.figure()
+    # im.display()
+    # sfit.display()
+    # plt.show()
 
     print("\n=== Drop base diameter: ===")
     print(radius)

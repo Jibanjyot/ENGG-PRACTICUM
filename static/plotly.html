@@ -474,6 +474,25 @@
         }
         pt=(pt+1)%2;
       }
+
+
+      var useHeight = function() {
+        document.getElementById("hactual").value = document.getElementById("calculatedHeight").value
+      }
+
+      var useRadius = function() {
+        document.getElementById("bactual").value = document.getElementById("calculatedRadius").value
+      }
+
+      var useAngle = function() {
+        document.getElementById("angle").value = document.getElementById("calculatedAngle").value
+      }
+
+      var useVolume = function() {
+        document.getElementById("volumeactual").value = document.getElementById("calculatedVolume").value
+      }
+
+      
       var processFile = function(event) {
         var p1x=document.getElementById("p1x").value
         var p1y=document.getElementById("p1y").value
@@ -492,10 +511,10 @@
         XHR5.send(FD);  
         XHR5.onload = function(){
             const data=JSON.parse(XHR5.response);
-            document.getElementById("angle").value=data.cotact_angle_2.toFixed(3)
-            document.getElementById("bactual").value=data.radius.toFixed(3)
-            document.getElementById("hactual").value=data.height.toFixed(3)
-            document.getElementById("volumeactual").value=data.volume.toFixed(3)
+            document.getElementById("calculatedAngle").value=data.cotact_angle_2.toFixed(3)
+            document.getElementById("calculatedRadius").value=data.radius.toFixed(3)
+            document.getElementById("calculatedHeight").value=data.height.toFixed(3)
+            document.getElementById("calculatedVolume").value=data.volume.toFixed(3)
             console.log(data)
         }
       };
@@ -507,7 +526,7 @@
         <label for="image"> <h3>Upload Image of Droplet    :</h3></label>
         <input type="file"  accept="image/*" name="image" id="file" style="padding-left: 1%; padding-top: 0.2%;"  onchange="loadFile(event)" >
       </div>
-      <div style="display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
+      <div style="display: flex; flex-direction: column; align-items: center; justify-content: space-between;" id="tobedisplayed">
         <form name="pointform" method="post">
           <div id="pointer_div" onclick="point_it(event)"><i id="cross" class="fa fa-times"></i></div>
           You pointed on x = <input type="text" name="form_x" size="4" />  y = <input type="text" name="form_y" size="4" />
@@ -526,8 +545,32 @@
         <label for="hstar">Distance (mm) :</label>
         <input id="actualdistance" />
         <button style="margin:20px" onclick="processFile(event)">Submit</button>
+        <div class="d-flex flex-row">
+          <div class="p-2">
+            <label for="hstar">Height (mm) :</label>
+            <input id="calculatedHeight"  disabled/>
+            <button style="margin:20px" onclick="useHeight()">Use</button>
+          </div>
+          <div class="p-2">
+            <label for="hstar">Base Radius (mm) :</label>
+            <input id="calculatedRadius"  disabled/>
+            <button style="margin:20px" onclick="useRadius()">Use</button>
+          </div>
+          <div class="p-2">
+            <label for="hstar">Volume (V in <span>&#181;</span> L )</label>
+            <input id="calculatedVolume"  disabled/>
+            <button style="margin:20px" onclick="useVolume()">Use</button>
+          </div>
+          <div class="p-2">
+            <label for="hstar">Contact Angle(degrees <span>&#176</span> )</label>
+            <input id="calculatedAngle"  disabled/>
+            <button style="margin:20px" onclick="useAngle()">Use</button>
+          </div>
+          
+        </div>
+        
+        
       </div>
-      
       <div class="p-3 mb-3" >
         <div class="d-flex justify-content-center"><h5 class="color-palette-heading col-lg-6 ">Below three fields are required.</h5></div> 
           <div class="input-data">
@@ -569,7 +612,7 @@
                     <input type="text" id="volumeactual" name="fname"><br><br>
                   </div>
                   <div class="textbox">
-                    <label for="bstar">Contact Angle:</label>
+                    <label for="bstar">Contact Angle(degrees <span>&#176</span>):</label>
                     <input type="text" id="angle" name="fname"><br><br>
                   </div>
                   <div class="textbox">
