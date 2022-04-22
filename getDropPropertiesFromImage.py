@@ -5,24 +5,35 @@ import imageio
 # Import an image
 import numpy as np
 import cv2
-
+from PIL import Image
 def GetParametersFromImage(resolution):
     print("---------------------------------------------------------------------------------------------")
     print(resolution)
     # resolution = resolution*10
     print(resolution)
+    src = Image.open("static/uploads/droplet.jpg")
+    img = src.rotate(180)
+    img.save("static/uploads/rotated_droplet.jpg")
     print("----------------------------------------------------------------------------------------------")
-    im = dsa.import_from_image('static/uploads/droplet.jpg', dx=1/resolution, dy=1/resolution, unit_x='mm', unit_y='mm')
+    im = dsa.import_from_image('static/uploads/rotated_droplet.jpg', dx=1/resolution, dy=1/resolution, unit_x='mm', unit_y='mm')
     # Display it
     # plt.figure()
     # im.display()
     # plt.show()
     im.set_baseline(pt1=[2, 2.4/resolution], pt2=[4.5, 2.4/resolution])
     edge = im.edge_detection()
+    
     edge_cont = im.edge_detection()
-    edge_cont = im.edge_detection_contour(level=.25)
-    sfit = edge.fit_spline()
-
+    
+    edge_cont = im.edge_detection_contour(level=.15)
+    # plt.figure()
+    # im.display()
+    # edge_cont.display()
+    # plt.show()
+    sfit = edge_cont.fit_spline()
+    # plt.figure()
+    # im.display()
+    # plt.show()
     sfit.compute_contact_angle()
     print('Contact angles: {}'.format(sfit.thetas))
     c_angles = [sfit.thetas[0], 180-sfit.thetas[1]]
@@ -48,7 +59,7 @@ def GetParametersFromImage(resolution):
               "height": height, "volume": volume}
 
     
-    os.remove("static/uploads/droplet.info")
+    os.remove("static/uploads/rotated_droplet.info")
     image = imageio.imread('droplet.jpg')
     # plt.figure()
     # plt.imshow(image)
