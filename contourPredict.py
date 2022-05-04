@@ -5,7 +5,7 @@ from scipy.interpolate import splev, splrep
 from scipy import interpolate
 from sklearn import neighbors, datasets
 import pickle
-
+import math
 
 # def fun(x_inp, y_inp):
 
@@ -181,11 +181,22 @@ def fun(x_inp, y_inp):
         # y_coord = y_coord + y
         # for i in x:
             for i in range(len(x)):
-                x_coord.append(x[i])
-                y_coord.append(y[i])
+                if math.isnan(y[i]) == False and math.isnan(x[i]) == False:
+                    x_coord.append(x[i])
+                    y_coord.append(y[i])
+                else:
+                    print(x[i],y[i])
         # print(np.shape(x), np.shape(y))
     # plt.plot(x_coord,y_coord)
     # plt.show()
     # print(x_coord)
+    # x_coord_new = []
+    # y_coord_new = []
+    
+    # for i in range(len(x_coord)):
+    #     if math.isnan(y_coord[i]) == False:
+    #         x_coord_new.append(x_coord[i])
+    #         y_coord_new.append(y_coord[i])
+    # print(x_coord_new,y_coord)
     return x_coord,y_coord
     plt.show()

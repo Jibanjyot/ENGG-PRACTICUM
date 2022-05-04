@@ -11,9 +11,12 @@ def GetParametersFromImage(resolution):
     print(resolution)
     # resolution = resolution*10
     print(resolution)
-    src = Image.open("static/uploads/droplet.jpg")
-    img = src.rotate(180)
-    img.save("static/uploads/rotated_droplet.jpg")
+    # src = Image.open("static/uploads/droplet.jpg")
+    src = cv2.imread("static/uploads/droplet.jpg")
+    img = cv2.rotate(src, cv2.ROTATE_180)
+    # img = src.rotate(180)
+    # img.save("static/uploads/rotated_droplet.jpg")
+    cv2.imwrite("static/uploads/rotated_droplet.jpg",img)
     print("----------------------------------------------------------------------------------------------")
     im = dsa.import_from_image('static/uploads/rotated_droplet.jpg', dx=1/resolution, dy=1/resolution, unit_x='mm', unit_y='mm')
     # Display it

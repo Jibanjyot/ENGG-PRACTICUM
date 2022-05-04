@@ -68,8 +68,8 @@ var trace6 = {
 
 var layout = {
     autosize: true,
-    width: 1200,
-    height: 950,
+    width: 900,
+    height: 750,
     margin: {
       r: 0,
       l:200

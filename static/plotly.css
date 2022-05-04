@@ -1,4 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Bree+Serif&family=Caveat:wght@400;700&family=Lobster&family=Monoton&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display+SC:ital,wght@0,400;0,700;1,700&family=Playfair+Display:ital,wght@0,400;0,700;1,700&family=Roboto:ital,wght@0,400;0,700;1,400;1,700&family=Source+Sans+Pro:ital,wght@0,400;0,700;1,700&family=Work+Sans:ital,wght@0,400;0,700;1,700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+body{
+    font-family: 'Roboto', sans-serif;;
+}
 
 .color-palette-heading {
     text-align: center;
@@ -20,12 +24,24 @@
 .heading{
  padding: 20px;
 }
+
+.upload_img{
+    display: flex;
+}
+
+#headings{
+    background-color: black; 
+    color: #fff !important;
+    text-align: center;
+    padding: 15px;
+
+}
 .color-name {
     color: white;
     font-size: 20px;
 }
 .container-background{
-    background-color: #fff;
+    /* background-color: #fff; */
     display: flex;
     flex-direction: column;
 }
@@ -48,6 +64,7 @@
 .graph{
     display: flex;
     justify-content: end;
+    border: 5px solid black;
     flex:0.6
 }
 .plotly-card{
@@ -57,21 +74,23 @@
     display: flex;
     justify-content: space-around;
 }
-.length{
-    display: flex;
-    justify-content: center;
-}
+
 .buttons{
     display: flex;
     justify-content: center;
     align-items: center;
 }
+.input_data{
+    display: flex;
+    align-items: center;
+    padding:  20px;
+}
 
 #pointer_div {
     background-size: contain;
     background-repeat: no-repeat;
-	width: 500px;
-	height: 500px;
+	width: auto;
+	height: 300px;
     background: url("static\uploads\droplet.jpg") no-repeat;
 }
 #cross {
@@ -82,11 +101,18 @@
 	font-size: 14px;
 }
 
+.input_fields{
+    display: flex;
+    justify-content: space-around;
+    width:85%
+}
+
 .length{
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    align-items: start;
+    padding:30px
 }
 
 #output{

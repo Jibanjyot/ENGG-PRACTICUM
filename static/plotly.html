@@ -113,8 +113,9 @@
       XHR.send(FD);
       console.log("send")
       XHR.onload = function(){
+          console.log(XHR.response)
           var x = JSON.parse(XHR.response)
-          console.log(x)
+          
 
           const XHR1 = new XMLHttpRequest(),
           FD1  = new FormData();
@@ -519,8 +520,8 @@
         }
       };
     </script>
-  
-      <div class="d-flex justify-content-center"><h1 class="color-palette-heading col-lg-6 ">Digitised Tensiometric chart</h1></div>
+    <div style="background:linear-gradient(45deg, rgba(66, 183, 245, 0.8) 0%, rgba(66, 245, 189, 0.4) 100%);     ;">
+     <div class="d-flex justify-content-center" id = "headings"><h1 class="col-lg-6 ">Digitised Tensiometric chart</h1></div>
      <div>
       <div class="length">
         <label for="image"> <h3>Upload Image of Droplet    :</h3></label>
@@ -530,22 +531,32 @@
         <form name="pointform" method="post">
           <div id="pointer_div" onclick="point_it(event)"><i id="cross" class="fa fa-times"></i></div>
           You pointed on x = <input type="text" name="form_x" size="4" />  y = <input type="text" name="form_y" size="4" />
-          <button style="margin:20px" onclick="saveScale(event)">Save</button>
+          <button class="btn btn-primary" style="margin:20px" onclick="saveScale(event)">Save</button>
         </form>
-        <span>Point 1</span>
-        <label for="hstar">X :</label>
-        <input id="p1x"/>
-        <label for="hstar">Y :</label>
-        <input id="p1y" />
-        <span>Point 2</span>
-        <label for="hstar">X :</label>
-        <input id="p2x" />
-        <label for="hstar">Y :</label>
-        <input id="p2y" />
-        <label for="hstar">Distance (mm) :</label>
-        <input id="actualdistance" />
-        <button style="margin:20px" onclick="processFile(event)">Submit</button>
-        <div class="d-flex flex-row">
+        <div style="display: flex; justify-content: space-around; width: 70%; margin:0px;">
+          <h5 style="padding: 10px;">Point 1</h5>
+          <h5 style="padding: 10px;">Point 2</h5>
+        </div>
+        <div class = "input_data">
+          <!-- <h5 style="padding: 10px;">Point 1</h5> -->
+          <div style="margin-right: 40px;">
+            <label for="hstar">X :</label>
+            <input id="p1x"/>
+            <label for="hstar">Y :</label>
+            <input id="p1y" />
+          </div>
+          <!-- <h5 style="padding: 10px;">Point 2</h5> -->
+          <div>
+            <label for="hstar">X :</label>
+            <input id="p2x" />
+            <label for="hstar">Y :</label>
+            <input id="p2y" />
+          </div>
+        </div>
+        <label for="hstar" style="padding: 5px;">Distance (mm) :</label>
+          <input id="actualdistance" />
+        <button type="button" class="btn btn-primary" style="margin:40px" onclick="processFile(event)">Submit</button>
+        <div class="d-flex flex-row input_fields">
           <div class="p-2">
             <label for="hstar">Height (mm) :</label>
             <input id="calculatedHeight"  disabled/>
@@ -564,7 +575,7 @@
           <div class="p-2">
             <label for="hstar">Contact Angle(degrees <span>&#176</span> )</label>
             <input id="calculatedAngle"  disabled/>
-            <button style="margin:20px" onclick="useAngle()">Use</button>
+            <button style="margin:10px" onclick="useAngle()">Use</button>
           </div>
           
         </div>
@@ -572,31 +583,30 @@
         
       </div>
       <div class="p-3 mb-3" >
-        <div class="d-flex justify-content-center"><h5 class="color-palette-heading col-lg-6 ">Below three fields are required.</h5></div> 
+        <div class="d-flex justify-content-center mb-20" style="margin: 20px;"><h3 class="col-lg-6" style="text-align: center;">Below three fields are required.</h3></div> 
           <div class="input-data">
             <div class="textbox">
               <label for="hstar">Surface tension, &#963; (N/m) :</label>
-              <input type="text" id="tension" name="fname" value="9800" required><br><br>
+              <input type="text" id="tension" name="fname" value="0.072" required><br><br>
             </div>
             <div class="textbox">
               <label for="bstar">Gravititational acceleration, g (mm/s<sup>2</sup>):</label>
-              <input type="text" id="ag" name="fname" value="9800" required><br><br>
+              <input type="text" id="ag" name="fname" value="9810" required><br><br>
             </div>
               <div class="textbox">
               <label for="bstar">Density difference, &Delta;&rho; (Kg/mm<sup>3</sup>) :</label>
-              <input type="text" id="density" name="fname" value="1" required><br><br>
+              <input type="text" id="density" name="fname" value="0.000000997" required><br><br>
             </div>
                            
           </div>
         </div>
-      </div>
      <div class="length">
       <label for="bstar">Capillary length (L<sub>c</sub>) :</label>
         <input id="lc">
      </div>
      <div class="container-fluid container-background">
         <div>
-        <div class="d-flex justify-content-center"><h5 class="color-palette-heading col-lg-6 ">Input any two of below fields.</h5></div>
+        <div class="d-flex justify-content-center"><h3 class="col-lg-6 " style="text-align: center;">Input any two of below fields.</h3></div>
             <div class="p-3 mb-3" >
                 <div class="input-data">
                   <div class="textbox">
@@ -648,11 +658,13 @@
             </div>
         </div>     
         <div class="group">
-          <div class="plotly-card p-3 mb-3" class="graph">
-              <div id="tester"></div>
+          <div class="plotly-card p-3 mb-3">
+              <div id="tester" class = "graph"></div>
           </div>
         </div>
     </div>
+  </div>
+</div>
 </body>
 <script src="js/plotly.js">
 </script>
